@@ -10,7 +10,7 @@ import { isProjectOwner, isTeacher } from "auth/Utils";
 import { Router } from "express";
 import * as ProjectStore from "store/ProjectStore";
 import * as bcrypt from "bcrypt";
-
+import { Request } from "express"
 import AnnotationsApi from "./AnnotationApi";
 import { getOneVideoIdFromVideo, tryDeleteVideo } from "store/VideoStore";
 
@@ -84,8 +84,8 @@ router.post("/", isTeacher, (req, res) => {
     });
 });
 
-router.put("/:projectId", isTeacher, isProjectOwner, (req, res) => {
-  ProjectStore.update(req.body, req.params.projectId)
+router.put("/:projectId", isTeacher, isProjectOwner, (req:Request<{projectId:string}>, res) => {
+  ProjectStore.update(req.params.projectId, req.body)
     .then((result) => res.status(200).json(result))
     .catch((error) => {
       // tslint:disable-next-line:no-console

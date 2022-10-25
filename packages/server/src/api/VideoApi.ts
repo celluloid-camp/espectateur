@@ -1,5 +1,5 @@
 import * as express from "express";
-import { VideoData, VideoRecord } from "@celluloid/types";
+import { Player, VideoData, VideoRecord } from "@celluloid/types";
 import { isTeacher } from "auth/Utils";
 import {
   insertVideo,
@@ -287,7 +287,7 @@ router.get("/:path/image", isTeacherOrHasAccessToVideo, (req, res) => {
 });
 
 router.delete("/:player/:path", isTeacher, (req, res) => {
-  selectOne(req.params.player, req.params.path)
+  selectOne(req.params.player as Player, req.params.path)
     .then((video: VideoRecord) => {
       tryDeleteVideo(video);
       return res.status(204).send();

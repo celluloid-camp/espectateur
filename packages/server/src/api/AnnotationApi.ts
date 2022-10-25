@@ -7,6 +7,7 @@ import { isProjectOwnerOrCollaborativeMember } from 'auth/Utils';
 import * as express from 'express';
 import * as AnnotationStore from 'store/AnnotationStore';
 import * as CommentStore from 'store/CommentStore';
+import { Request } from "express"
 import * as ProjectStore from 'store/ProjectStore';
 
 import CommentApi from './CommentApi';
@@ -20,7 +21,7 @@ function fetchComments(annotation: AnnotationRecord, user: UserRecord) {
     .then(comments => Promise.resolve({ ...annotation, comments } as AnnotationRecord));
 }
 
-router.get('/', (req, res) => {
+router.get('/', (req: Request<{ projectId: string}>, res) => {
   const projectId = req.params.projectId;
   const user = req.user as UserRecord;
 

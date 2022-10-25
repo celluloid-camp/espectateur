@@ -293,8 +293,9 @@ router.get("/me", isLoggedIn, (req, res) => {
 });
 
 router.put("/logout", isLoggedIn, (req, res) => {
-  req.logout();
-  return res.status(200).send();
+  req.logout(() => {
+    return res.status(200).send();
+  });
 });
 
 export default router;

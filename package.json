@@ -1,0 +1,38 @@
+{
+  "name": "celluloid",
+  "author": "Erwan Queffélec <erwan.queffelec@gmail.com>",
+  "license": "MIT",
+  "description": "Celluloid helps students and teachers to interact by annotating online educational videos",
+  "repository": "http://github.com/celluloid-edu/celluloid",
+  "private": true,
+  "workspaces": [
+    "packages/*"
+  ],
+  "scripts": {
+    "watch": "yarn build-libs && concurrently \"yarn watch-types\" \"yarn watch-validators\" \"yarn watch-server\" \"yarn watch-client\"",
+    "clean": "for package in $(ls packages); do (cd packages/${package} && yarn clean); done",
+    "watch-client": "(cd packages/client && yarn watch)",
+    "watch-server": "(cd packages/server && yarn watch)",
+    "watch-types": "(cd packages/types && yarn watch)",
+    "watch-validators": "(cd packages/validators && yarn watch)",
+    "build-client": "(cd packages/client && yarn build)",
+    "build-server": "(cd packages/server && yarn build --mode=production)",
+    "build-types": "(cd packages/types && yarn build)",
+    "build-validators": "(cd packages/validators && yarn build)",
+    "build-libs": "yarn build-types && yarn build-validators",
+    "build": "yarn build-libs && yarn build-client && yarn build-server",
+    "deploy": "./bin/deploy",
+    "start": "(cd packages/server && yarn start)"
+  },
+  "devDependencies": {
+    "lerna": "^3.0.0"
+  },
+  "dependencies": {
+    "ffmpeg": "0.0.4",
+    "pg": "^8.7.1",
+    "react": "^17.0.2",
+    "react-scripts-ts": "^3.1.0",
+    "when": "^3.7.8",
+    "yarn": "^1.22.11"
+  }
+}

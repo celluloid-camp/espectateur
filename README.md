@@ -1,29 +1,31 @@
-# Celluloid
+# Celluloid- Espectateur
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![Build Status](https://travis-ci.com/celluloid-camp/celluloid.svg?branch=master)](https://travis-ci.com/celluloid-camp/celluloid)
+[![Build Status](https://travis-ci.com/celluloid-camp/celluloid.svg?branch=master)](https://travis-ci.com/celluloid-camp/espectateur)
 [![Gitter chat](https://badges.gitter.im/celluloid-camp.png)](https://gitter.im/celluloid-camp)
 [![Renovate enabled](https://img.shields.io/badge/renovate-enabled-brightgreen.svg)](https://renovatebot.com/)
 
 ## What is this?
 
-Celluloid is a collaborative video annotation application designed for educational purposes.
+Celluloid Espectateur is a collaborative video annotation application designed for educational purposes.
 
 Find a video, choose an educational objective, annotate the video, share it with your students,
 collect their answers, answer their questions.
 
+With espectateur version, you can have three annotations types: semantic annotation using a specific ontology to performance studies, free annotation ( comment), or emoticones.
+
 ## Demo
 
-Head to https://celluloid.huma-num.fr/, create an account and click where you think you should!
+Head to https://espectateur.huma-num.fr/, create an account and click where you think you should!
 
-We'd appreciate your feedback about the application UX and design, as well as bug reports - don't hesitate to [report an issue!](https://github.com/celluloid-camp/celluloid/issues)
+We'd appreciate your feedback about the application UX and design, as well as bug reports - don't hesitate to [report an issue!](https://github.com/celluloid-camp/espectateur/issues)
 
 ## Who's behind it?
 
-Celluloid was born from a research project lead by **Michaël Bourgatte** and **Laurent Tessier**,
-two senior lecturers at the [Catholic University of Paris](https://en.icp.fr/english-version/).
-Their work focus on educational science and digital humanities.
+Espectateur was born from a research project 'Celluloid' lead by *CHANTRAINE Cécile*,
+a Professor at La Rochelle University.
+Her work focus on Theater art science and digital humanities.
 
-Celluloid is maintained by [Erwan Queffélec](https://github.com/3rwww1), and **we are actively looking for contributors and maintainers**.
+Espectateur is maintained by [Maya LARBI](https://github.com/mayalb), and **we are actively looking for contributors and maintainers**.
 Don't hesitate to [drop us a line on gitter!](https://gitter.im/celluloid-camp)
 
 # Setup
@@ -32,9 +34,9 @@ Don't hesitate to [drop us a line on gitter!](https://gitter.im/celluloid-camp)
 
 ### Environment
 
-Celluloid was designed to run on a Linux server.
+Espectateur was designed to run on a Linux server.
 
-To deploy and install Celluloid, knowing your way around the command-line is required. **Using an OSX or Linux workstation is highly recommended**.
+To deploy and install ESpectateur, knowing your way around the command-line is required. **Using an OSX or Linux workstation is highly recommended**.
 
 ### Tools
 
@@ -65,7 +67,7 @@ For development purpose, you could use your email account SMTP credentials, for 
 
 Fire up a terminal and run the following commands:
 
-    git clone https://github.com/celluloid-edu/celluloid
+    git clone https://github.com/celluloid-camp/espectateur.git
     cd celluloid/
     yarn
 
@@ -86,6 +88,9 @@ Make sure your PostgreSQL server is up. In a terminal, go to the `bin` directory
 
 If this fails, you most certainly got your PostgreSQL server configuration or your `.env` file wrong.
 
+### Semantic backend 
+To install the semantic backend for having semantic annotation go to: https://github.com/celluloid-camp/espectateur and setup the project
+
 ### Running the app in development mode
 
 At the root of your repository, run
@@ -103,7 +108,7 @@ At the root of your repository, run
     yarn build
     yarn start
 
-You should be able to access your app at http://localhost:3001
+You should be able to access your app at http://localhost:3002
 
 ### Building and starting the app as a docker container
 
@@ -117,7 +122,7 @@ Open a terminal at the root of your repository, then run
 
 **We are actively looking for motivated contributors!**.
 
-Do not hesitate to open a pull request, [contact us on gitter](https://gitter.im) or [report a bug!](https://github.com/celluloid-camp/celluloid/issues)
+Do not hesitate to open a pull request, [contact us on gitter](https://gitter.im) or [report a bug!](https://github.com/celluloid-camp/espectateur/issues)
 
 ## Roadmap
 
@@ -128,7 +133,7 @@ Do not hesitate to open a pull request, [contact us on gitter](https://gitter.im
 
 ## Technical Stack
 
-Before contributing to the development of Celluloid, you should get familiar with some of the following technologies:
+Before contributing to the development of Espectateur, you should get familiar with some of the following technologies:
 
 - everywhere: [TypeScript](https://www.typescriptlang.org/)
 - frontend: [React](https://reactjs.org/), [Redux](https://redux.js.org/) and [Material UI](https://material-ui.com/)

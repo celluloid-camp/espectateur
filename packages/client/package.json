@@ -76,7 +76,7 @@
   "dependencies": {
     "@celluloid/react-player": "^2.11.3",
     "autoprefixer": "7.1.6",
-    "axios": "^0.19.2",
+    "axios": "^0.21.0",
     "babel-jest": "20.0.3",
     "babel-loader": "7.1.2",
     "babel-preset-react-app": "^3.1.2",

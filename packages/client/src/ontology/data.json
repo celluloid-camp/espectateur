@@ -1,0 +1,77 @@
+{
+    "Composantes du spectacle":{
+        "Acteur":{
+            "Jeu":{
+                "Naturaliste":"",
+                "Réaliste":"",
+                "Symbolique":"",
+                "Distancié":"",
+                "Expressioniste":"",
+                "Epique":"",
+                "Grotesque":"",
+                "Caricatural":"",
+                "Psychologique":"",
+                "Poétique":""
+            },
+            "Gestuelle":{
+                "Fonction":{
+                    "Gestuelle d'action":"",
+                    "Gestuelle d'expression":"",
+                    "Gestuelle d'indication":""
+                },
+                "Rythme":{
+                    "Très rapide":"",
+                    "Rapide":"",
+                    "Modérée":"",
+                    "Lente":"",
+                    "Très lente":"",
+                    "Statique":""
+                }
+            },
+            "Diction":{
+                "Type":{
+                    "Solennelle":"",
+                    "Intimiste":"",
+                    "Attentionnée":"",
+                    "Intériorisée":"",
+                    "Emotionnelle":"",
+                    "Neutre":""
+                },
+                "Rythme":{
+                    "Très rapide":"",
+                    "Rapide":"",
+                    "Modérée":"",
+                    "Lente":"",
+                    "Très lente":"",
+                    "Saccadée":"",
+                    "Mélodieuse":""
+                },
+                "Intonation":{
+                    "Très forte":"",
+                    "Mimée":"",
+                    "Chuchotée":"",
+                    "Forte":"",
+                    "Modérée":""
+                }
+            }
+        },
+    "Son":{
+        "Production d'action":"",
+        "Illustration d'action":"",
+        "Ambiance accoustique":"",
+        "Bruitage":"",
+        "Contrepoint d'action":""
+    },
+    "Espace":{
+        "Lieu":{
+            "Espace conventionnel":"",
+            "Espace non conventionnel":""
+        },
+        "Expérience spatiale":{
+            "Espace de jeu":"",
+            "Espace liminaire":"",
+            "Espace du spectateur":""
+        }
+    }
+}
+}

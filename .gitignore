@@ -4,7 +4,7 @@
 node_modules
 #videos and images
 *.mp4
-*.jpg
+
 # testing
 /coverage
 

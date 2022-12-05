@@ -15,7 +15,7 @@ export default {
       + ' ask questions, provide the answers.',
     teachers: 'Teachers & Trainers',
     students: 'Pupils & Students',
-    addVideo: 'Add a link to a YouTube video...',
+    addVideo: 'Add a link to a Peertube video...',
     newProject: 'new project',
     joinProject: 'join a project',
     searchProject: 'Type anything…',

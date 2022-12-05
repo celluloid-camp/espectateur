@@ -55,7 +55,7 @@ export default withI18n()(withStyles(styles)(
                 }
                 const { classes } = this.props;
                 if (this.props.player) {
-                    if (this.props.player === 'Youtube') {
+                    if (this.props.player === 'Peertube') {
                         return (
                             <TextField
                                 style={{
@@ -109,7 +109,7 @@ export default withI18n()(withStyles(styles)(
                     }
                 }
                 return (
-                    <span>Please, select a type of video (ex: Youtube).</span>
+                    <span>Please, select a type of video (ex: Peertube).</span>
                 );
             }
         }

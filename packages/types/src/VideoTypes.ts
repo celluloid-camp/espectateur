@@ -1,5 +1,5 @@
 export type Player
-  = 'Youtube'
+  = 'Peertube'
   | 'Local'
   ;
 

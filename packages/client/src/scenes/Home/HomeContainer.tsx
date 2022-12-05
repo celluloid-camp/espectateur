@@ -121,7 +121,7 @@ export default withI18n()(withStyles(styles)(
     class extends React.Component<Props, State> {
       state = {
         newProjectVideoUrl: '',
-        player: 'Youtube',
+        player: 'Peertube',
         newVideoFileName: 'No File Selected',
         open: false,
         openUploadFeedback: false
@@ -237,7 +237,7 @@ export default withI18n()(withStyles(styles)(
                         id: 'name-native-disabled',
                       }}
                     >
-                        <option value="Youtube">Youtube</option>
+                        <option value="Peertube">Peertube</option>
                         <option value="Local">Local</option>
                     </NativeSelect>
                     <div

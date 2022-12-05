@@ -34,7 +34,7 @@ export default withI18n()(withStyles(styles)(
       class extends React.Component<Props, State> {
         render() {
             switch (this.props.player) {
-                case 'Youtube': 
+                case 'Peertube': 
                     {
                         return (
                             <YouTube

@@ -42,7 +42,7 @@ export default withI18n()(withStyles(styles)(
             render() {
                 const { t } = this.props;
                 if (this.props.player) {
-                    if (this.props.player === 'Youtube') {
+                    if (this.props.player === 'Peertube') {
                         return (
                             <Button
                                 variant="contained"
@@ -85,7 +85,7 @@ export default withI18n()(withStyles(styles)(
                     }
                 }
                 return (
-                    <span>Please, select a type of video (ex: Youtube).</span>
+                    <span>Please, select a type of video (ex: Peertube).</span>
                 );
             }
         }

@@ -50,7 +50,7 @@ export const succeedLoadVideo = (video: Video) =>
 export const loadVideoThunk = (player: string, url: string, user?: UserRecord, video?: File) => (dispatch: Dispatch):
   AsyncAction<Video, string> => {
     switch (player) {
-      case 'Youtube': 
+      case 'Peertube': 
         {
           return getVideoIdYoutube(url)
           .then(id =>
@@ -61,7 +61,7 @@ export const loadVideoThunk = (player: string, url: string, user?: UserRecord, v
                 }
                 VideoService.create({
                   title: videoTitle,
-                  player: 'Youtube',
+                  player: 'Peertube',
                   path: id
                 }).catch((error: Error) => {
                   return dispatch(failLoadVideo(error.message));
@@ -70,7 +70,7 @@ export const loadVideoThunk = (player: string, url: string, user?: UserRecord, v
                   id,
                   title: videoTitle,
                   thumbnailUrl: `http://img.youtube.com/vi/${id}/0.jpg`,
-                  player: 'Youtube'
+                  player: 'Peertube'
                 }));
               })
           )

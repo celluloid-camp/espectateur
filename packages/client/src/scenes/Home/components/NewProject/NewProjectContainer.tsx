@@ -144,7 +144,7 @@ function initState(): State {
     project: {
       video: {
         title: '',
-        player: 'Youtube',
+        player: 'Peertube',
         path: ''
       },
       title: '',

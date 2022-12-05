@@ -171,7 +171,7 @@ export default connect(null, mapDispatchToProps)(withStyles(styles)(
               onClick={() => onClick()}
             >
               <CardMedia
-                image={video.player === 'Youtube' ? `https://img.youtube.com/vi/${video.path}/0.jpg`
+                image={video.player === 'Peertube' ? `https://img.youtube.com/vi/${video.path}/0.jpg`
                  : `/api/video/${video.path}/image`}
                 className={classes.image}
               >

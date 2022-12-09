@@ -35,17 +35,17 @@ export default {
   about: {
     title: 'À propos',
     intro: {
-      prefix: 'Le développement de la plateforme ',
-      suffix: ' s’inscrit dans la continuité du projet de recherche Celluloïd '
-        + ' porté par Michaël Bourgatte et Laurent Tessier '
-        + ' (Institut Catholique de Paris).'
+      prefix: 'Dans la continuité du projet de recherche Celluloïd porté par Michaël Bourgatte'
+      +' et Laurent Tessier (Institut Catholique de Paris), le développement de la plateforme ',
+      suffix: ' s’inscrit dans la recherche menée au sein du programme '
+        + ' ESNA (Ecole du Spectateur de Nouvelle Aquitaine). '
     },
-    support: 'Le développement de cette plateforme d’annotation vidéo de spectacle'
-      + ' vivant à vocation scientifique et pédagogique, qui s’inscrit dans la '
-      + ' Fondation Saint Matthieu.',
+    support: 'Le développement de cette plateforme d’annotation vidéo de spectacle vivant à vocation scientifique et pédagogique,'
+      + ' bénificie du soutien de la région Nouvelle Aquitaine, de La Rochelle Université, du CRHIA, '
+      + ' et de l’Agence Erasmus + et du Consortium HumaNum CANEVAS. ',
     opensource: {
-      prefix: 'Celluloid est un projet Open Source développé par Erwan'
-        + ' Queffélec dans le cadre d\'un partenariat avec La Paillasse.'
+      prefix: 'Espectateur est un projet Open Source dirigé et développé par Cécile Chantraine Braillon (La Rochelle Université), '
+        + ' Fatiha Idmhand (Université de Poitiers) et développé par Maya Larbi (ESI, La Rochelle Université).'
         + ' L’ensemble du code est accessible librement ',
       github: 'sur GitHub'
     }

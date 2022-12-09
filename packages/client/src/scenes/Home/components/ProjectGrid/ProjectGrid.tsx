@@ -1,5 +1,5 @@
 import { listProjectsThunk } from 'actions/ProjectActions';
-import TagSearchBox from 'components/TagSearchBox/TagSearchBox';
+/* import TagSearchBox from 'components/TagSearchBox/TagSearchBox'; */
 import { isMember, isOwner } from 'utils/ProjectUtils';
 import { ProjectGraphRecord, TagData, UserRecord } from '@celluloid/types';
 import {
@@ -168,13 +168,13 @@ export default withStyles(styles)(
                 )}
               </div>
             </Toolbar>
-            <Toolbar>
-              <TagSearchBox
+            {/* <Toolbar> */}
+              {/* <TagSearchBox
                 prefix={t('tagSearch.prefix')}
                 onTagSelected={onTagSelected}
                 label={t('home.searchProject')}
-              />
-            </Toolbar>
+              /> */}
+            {/* </Toolbar> */}
             <div className={classes.grid}>
               {userProjects.length > 0 &&
                 <>

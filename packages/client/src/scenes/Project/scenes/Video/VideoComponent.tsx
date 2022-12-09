@@ -131,8 +131,9 @@ export default connect(mapStateToProps, mapDispatchToProps)(
         )
       )
     );
-
+    console.log('type of player:', project.video.player)
     return (
+    
       <Fullscreen
         enabled={fullscreen}
         onChange={onFullscreenChange}
@@ -146,6 +147,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
           <div>
             <VideoPlayer 
               player={project.video.player} 
+            
               path={project.video.path}
               className={classes.videoIframe}
               onPlayerReady={onPlayerReady}

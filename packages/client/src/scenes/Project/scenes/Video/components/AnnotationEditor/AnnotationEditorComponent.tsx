@@ -193,12 +193,16 @@ const emojis = [
     value: 'iLove',
   },
   {
+    label: '😨',
+    value: 'Fear',
+  },
+  {
     label: '🙁',
     value: 'iDontLike',
   },
   {
     label: '🤔',
-    value: 'iDontUndrestand',
+    value: 'ItsStrange',
   },
 ];
 export let globalEmoji=''

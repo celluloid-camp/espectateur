@@ -8,16 +8,14 @@ export default {
   },
 
   home: {
-    title: 'Apprendre ensemble avec une vidéo',
+    title: 'Annoter ensemble une vidéo de spectacle vivant',
     description:
-      'Partagez une vidéo Youtube avec vos élèves, vos'
-      + ' étudiant.e.s ou un groupe en formation : créez'
-      + ' votre projet pédagogique, annotez les images,'
-      + ' posez des questions et répondez à celles des'
-      + ' participant.e.s.',
-    teachers: 'Enseignants et formateurs',
-    students: 'Élèves et étudiants',
-    addVideo: 'Ajoutez un lien vers une vidéo YouTube...',
+      'Partagez une vidéo Peertube ou importée depuis votre ordinateur'
+      + ' avec vos collègues, vos étudiants ou vos élèves:'
+      + ' créez votre projet d\'analyse et annotez les images de façon collective.',
+    teachers: 'Créateur de projet',
+    students: 'Collaborateurs',
+    addVideo: 'Ajoutez un lien vers une vidéo PeerTube...',
     newProject: 'Nouveau projet',
     joinProject: 'Rejoindre un projet',
     searchProject: 'Rechercher un projet…',
@@ -38,12 +36,12 @@ export default {
     title: 'À propos',
     intro: {
       prefix: 'Le développement de la plateforme ',
-      suffix: ' s’inscrit dans le cadre d’un projet de recherche'
-        + ' porté par Michaël Bourgatte et Laurent Tessier au sein'
-        + ' de l’Atelier du Numérique de l’Institut Catholique de Paris.'
+      suffix: ' s’inscrit dans la continuité du projet de recherche Celluloïd '
+        + ' porté par Michaël Bourgatte et Laurent Tessier '
+        + ' (Institut Catholique de Paris).'
     },
-    support: 'Le développement de cette plateforme d’annotation vidéo'
-      + ' à vocation pédagogique a bénéficié du soutien de la'
+    support: 'Le développement de cette plateforme d’annotation vidéo de spectacle'
+      + ' vivant à vocation scientifique et pédagogique, qui s’inscrit dans la '
       + ' Fondation Saint Matthieu.',
     opensource: {
       prefix: 'Celluloid est un projet Open Source développé par Erwan'

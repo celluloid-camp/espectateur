@@ -6,12 +6,12 @@
 
 ## What is this?
 
-Espectateur is a collaborative video annotation application designed for educational purposes.
+Espectateur is a collaborative video annotation application designed for performing arts' analysis.
 
-Find a video, choose an educational objective, annotate the video, share it with your students,
-collect their answers, answer their questions.
+Find a video of a live show, create a project on espectator, annotate the video, share it with collaborators,
+collect your and their annotations. Make an analysis based on those. 
 
-With espectateur, you can have three types of annotations: semantic annotations based on performance arts ontology, free comments and emoticons
+With espectateur, you can have three types of annotations: emoticons, free comments and semantic annotations based on performing arts ontology.
 
 ## Demo
 
@@ -21,11 +21,11 @@ We'd appreciate your feedback about the application UX and design, as well as bu
 
 ## Who's behind it?
 
-Espectateur was born from a research project lead by **CHANTRAINE BRAILLON Cécile**,
-a Professor at [La Rochelle Université](https://www.univ-larochelle.fr/).
+Espectateur was born from a research project led by **CHANTRAINE BRAILLON Cécile**,
+Professor in hispano american theatre at [La Rochelle Université](https://www.univ-larochelle.fr/).
 Her work focus on Performance studies and digital humanities.
 
-Celluloid is maintained by [Maya LARBI](https://github.com/mayalb), and **we are actively looking for contributors and maintainers**.
+Espectateur is maintained by [Maya LARBI](https://github.com/mayalb), and **we are actively looking for contributors and maintainers**.
 Don't hesitate to [drop us a line on gitter!](https://gitter.im/celluloid-camp)
 
 # Setup
@@ -135,7 +135,7 @@ Do not hesitate to open a pull request, [contact us on gitter](https://gitter.im
 
 ## Technical Stack
 
-Before contributing to the development of Celluloid, you should get familiar with some of the following technologies:
+Before contributing to the development of Espectateur, you should get familiar with some of the following technologies:
 
 - everywhere: [TypeScript](https://www.typescriptlang.org/)
 - frontend: [React](https://reactjs.org/), [Redux](https://redux.js.org/) and [Material UI](https://material-ui.com/)

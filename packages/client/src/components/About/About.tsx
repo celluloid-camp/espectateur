@@ -19,7 +19,7 @@ export default withI18n()(({ t }: WithI18n) => (
       {t('about.title')}
     </Typography>
     <Typography variant="subtitle1" gutterBottom={true}>
-      {t('about.intro.prefix')}<b>Celluloid</b>{t('about.intro.suffix')}
+      {t('about.intro.prefix')}<b>Espectateur</b>{t('about.intro.suffix')}
     </Typography>
     <Typography variant="subtitle1" gutterBottom={true}>
       {t('about.support')}

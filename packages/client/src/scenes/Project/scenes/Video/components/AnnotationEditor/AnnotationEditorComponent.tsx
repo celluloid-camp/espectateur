@@ -336,7 +336,7 @@ handleChange1(e) {
               <option value={option.concept}>{option.concept}</option>
             ))}
           </select>
-          <select value={this.state.concept1} onChange={this.handleChange1}>
+          {/* <select value={this.state.concept1} onChange={this.handleChange1}>
             {this.state.option1.map((option) => (
               <option value={option.concept}>{option.concept}</option>
             ))}
@@ -365,7 +365,7 @@ handleChange1(e) {
             {this.state.option6.map((option) => (
               <option value={option.concept}>{option.concept}</option>
             ))}
-          </select>
+          </select> */}
         </>
       ) : (
         <></>

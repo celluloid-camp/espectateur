@@ -80,19 +80,18 @@ const styles = (theme: Theme) =>
 
   const CSS = `
   #custom-select {
-    position: relative;
-    max-width: 30 px; 
+    position: center;
     font-family:"sans-serif"
-    font-size: 20px;
-    color:#CECECE;
-    font-weight: bold;
-    width: 30px
+    font-size: 50px;
+    color:#000000;
+    width: 120px;
     display: inline;
     padding-left 10px; 
     padding-right:20px;
   }
-  option{
-    background-color: #CECECE;
+  #option{
+    width: 60px;
+    font-size: 25px
  
   }
 
@@ -161,11 +160,35 @@ const TimingControl = (props: TimingControlProps) => (
 
 const emojis = [
   {
-    label: '😀',
-    value: 'Smile',
+    label: '😤',
+    value: 'Annoyance',
   },
   {
-    label: '😂',
+    label: '🥱',
+    value: 'Boredom',
+  },
+  {
+    label: '😱',
+    value: 'Fear',
+  },
+  {
+    label: '🥲',
+    value: 'Sadness',
+  },
+  {
+    label: '😮',
+    value: 'Surprise',
+  },
+  {
+    label: '🤔',
+    value: 'Questioning',
+  },
+  {
+    label: '🥰',
+    value: 'Empathy',
+  },
+  {
+    label: '😀',
     value: 'Laugh',
   },
   {
@@ -173,37 +196,24 @@ const emojis = [
     value: 'Hilarity',
   },
   {
-    label: '😠',
-    value: 'Tiredness',
+    label: '💔',
+    value: 'Hate',
   },
   {
-    label: '🙂',
-    value: 'iLike',
+    label: '👎',
+    value: 'Dislike',
   },
   {
-    label: '🤯',
-    value: 'Annoyance',
+    label: '👍',
+    value: 'Like',
   },
+ 
   {
-    label: '🥰',
-    value: 'Empathy',
+    label: '❤️',
+    value: 'Love',
   },
-  {
-    label: '😍',
-    value: 'iLove',
-  },
-  {
-    label: '😨',
-    value: 'Fear',
-  },
-  {
-    label: '🙁',
-    value: 'iDontLike',
-  },
-  {
-    label: '🤔',
-    value: 'ItsStrange',
-  },
+
+ 
 ];
 export let globalEmoji=''
 let globalConcept='concept'
@@ -331,7 +341,7 @@ handleChange1(e) {
         <style>{CSS}</style>
       {!this.props.perf ? (
         <>
-          <select value={this.state.concept} onChange={this.handleChange}>
+          <select id="custom-select" value={this.state.concept} onChange={this.handleChange}>
             {options.map((option) => (
               <option value={option.concept}>{option.concept}</option>
             ))}
@@ -372,7 +382,7 @@ handleChange1(e) {
       )}
       
           
-          <select value={this.state.emoji} onChange={this.handleEmoji}>
+          <select id="option" value={this.state.emoji} onChange={this.handleEmoji}>
             {emojis.map((emoji) => (
               <option value={emoji.value}>{emoji.label}</option>
             ))}

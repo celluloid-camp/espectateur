@@ -139,7 +139,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
       const onClickSave = async () => {
         annotation.performance_mode = this.props.performance_mode;
         annotation.user=this.props.user
-         annotation.text=annotation.text+globalEmoji
+         annotation.text=annotation.text+' '+globalEmoji
         if (this.props.annotation) {
           onUpdate(projectId, {
             ...this.props.annotation,

@@ -84,13 +84,13 @@ const styles = (theme: Theme) =>
     font-family:"sans-serif"
     font-size: 50px;
     color:#000000;
-    width: 120px;
+    width: 220px;
     display: inline;
     padding-left 10px; 
     padding-right:20px;
   }
   #option{
-    width: 60px;
+    width: 50px;
     font-size: 25px
  
   }
@@ -159,6 +159,10 @@ const TimingControl = (props: TimingControlProps) => (
 );
 
 const emojis = [
+  {
+    label: 'Emotions & Judgements',
+    value: '',
+  },
   {
     label: '😤',
     value: 'Annoyance',
@@ -382,9 +386,9 @@ handleChange1(e) {
       )}
       
           
-          <select id="option" value={this.state.emoji} onChange={this.handleEmoji}>
+          <select id="custom-select" value={this.state.emoji} onChange={this.handleEmoji}>
             {emojis.map((emoji) => (
-              <option value={emoji.value}>{emoji.label}</option>
+              <option id="option" value={emoji.value}>{emoji.label}</option>
             ))}
           </select> 
           </div>
@@ -564,6 +568,7 @@ function PostAnnotation(startTime: number, stopTime: number, text: String,projec
                { 
                 const annotationId= await onClickSave() 
                  PostAnnotation(startTime, stopTime, text,projectId,annotationId);
+                 globalEmoji='';
                }
                        }
               >

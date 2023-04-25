@@ -5,7 +5,7 @@ function getFirstConcepts ( endPoint: String ) {
     const route= PATH+endPoint;
     let options= [
         {
-          concept: 'Spectacle',
+          concept: 'Show Description',
         },
       ];
       axios

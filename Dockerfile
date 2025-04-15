@@ -1,6 +1,7 @@
 FROM node:20-alpine AS base
 RUN apk add --no-cache libc6-compat ffmpeg bash openssl openssl-dev
-RUN npm install -g turbo pnpm
+RUN corepack enable && corepack prepare pnpm@latest --activate
+RUN npm install -g turbo
 
 FROM base AS pruned
 WORKDIR /app
@@ -13,9 +14,7 @@ WORKDIR /app
 COPY --from=pruned /app/out/json/ .
 COPY --from=pruned /app/out/pnpm-lock.yaml /app/pnpm-lock.yaml
 
-RUN \
-  --mount=type=cache,target=/root/.local/share/pnpm/store,sharing=private \
-  pnpm install --frozen-lockfile
+RUN pnpm install --frozen-lockfile
 
 FROM base as builder
 WORKDIR /app
@@ -27,11 +26,8 @@ COPY --from=pruned /app/out/full/ .
 COPY turbo.json turbo.json
 COPY tsconfig.json tsconfig.json
 
-RUN turbo run build --no-cache
-
-RUN \
-  --mount=type=cache,target=/root/.local/share/pnpm/store,sharing=private \
-  pnpm install --frozen-lockfile
+RUN pnpm install --frozen-lockfile
+RUN pnpm turbo run build --no-cache
 
 FROM base AS runner
 WORKDIR /app

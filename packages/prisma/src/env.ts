@@ -6,5 +6,5 @@ export const env = createEnv({
     DATABASE_URL: z.string(),
   },
   runtimeEnv: process.env,
-  emptyStringAsUndefined: true
+  // emptyStringAsUndefined: true
 },);

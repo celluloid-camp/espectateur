@@ -36,7 +36,6 @@
     "@emotion/styled": "^11.11.0",
     "@godaddy/terminus": "^4.12.1",
     "@hookform/resolvers": "^3.10.0",
-    "@mui": "link:@mui",
     "@mui/icons-material": "^6.1.2",
     "@mui/lab": "^5.0.0-alpha.153",
     "@mui/material": "^6.1.2",

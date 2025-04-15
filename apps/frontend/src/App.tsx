@@ -43,7 +43,7 @@ import commonEN from "./locales/en/common.json";
 import commonES from "./locales/es/common.json";
 import commonFR from "./locales/fr/common.json";
 import commonHR from "./locales/hr/common.json";
-import commonRO from "./locales/ro/common.json";
+import commonPT from "./locales/pt/common.json";
 import commonID from "./locales/id/common.json";
 import { About } from "./pages/about";
 import { CreateProjectPage } from "./pages/create";
@@ -84,8 +84,8 @@ i18next
       hr_HR: {
         translations: commonHR,
       },
-      ro_RO: {
-        translations: commonRO,
+      pt_PT: {
+        translations: commonPT,
       },
       id_ID: {
         translations: commonID,

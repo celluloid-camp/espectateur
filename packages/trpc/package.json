@@ -53,6 +53,7 @@
   "devDependencies": {
     "@celluloid/config": "workspace:*",
     "@types/express": "^5.0.0",
+    "@types/express-serve-static-core": "^5.0.6",
     "@types/mjml": "^4.7.3",
     "@types/nodemailer": "^6.4.13",
     "@types/papaparse": "^5.3.10",

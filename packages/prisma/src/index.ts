@@ -16,7 +16,7 @@ const prismaClient = new PrismaClient({
         compute(user) {
           return user.username
             .split(/\s+/)
-            .map((part) => part.substring(0, 1))
+            .map((part: string) => part.substring(0, 1))
             .join("")
             .substring(0, 2)
         },

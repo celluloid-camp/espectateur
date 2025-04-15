@@ -1,15 +1,12 @@
 
 import { type inferAsyncReturnType, initTRPC, TRPCError } from '@trpc/server';
-import type { CreateExpressContextOptions } from "@trpc/server/adapters/express";
-import type {
-  CreateWSSContextFnOptions,
-} from '@trpc/server/adapters/ws';
 import type { OpenApiMeta } from 'trpc-openapi';
 import { auth } from "@celluloid/auth";
 import { fromNodeHeaders } from "better-auth/node";
 
 
-export async function createContext(opts: CreateExpressContextOptions | CreateWSSContextFnOptions) {
+//@ts-ignore
+export async function createContext(opts) {
 
   const { req, res } = opts;
 

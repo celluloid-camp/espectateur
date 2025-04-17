@@ -248,7 +248,7 @@
 	"profile.security.change-password.button": "Change password",
 	"project.chapters.empty": "Video doens't have chapters",
 	"chapter.confirm-delete.title": "Delete Chapter",
-	"project.chapters.inProgress.description": "La génération des chapitres est en cours",
+	"project.chapters.inProgress.description": "Chapter generation in progress...",
 	"project.chapters.title": "Chapters",
 	"confirm.generation.sent": "Chapters generation started",
 	"project.chapters.not-found": "No chapters found for this video.",

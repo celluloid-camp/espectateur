@@ -1,4 +1,5 @@
 {
+	"about.intro": "El desarrollo de <0>Celluloid</0> está dirigido por Michaël Bourgatte y Laurent Tessier en el marco de un <1>Consorcio Huma-Num</1> pluridisciplinario que reúne a investigadoras e investigadores que trabajan con corpus audiovisuales.",
 	"project.export": "Exportar anotaciones",
 	"project.export.success": "Anotación exportada exitosamente.",
 	"language-menu.english": "Inglés",

@@ -17,7 +17,7 @@
 	"annotation.contentPlaceholder": "Saisissez votre annotation…",
 	"annotation.create.cancel": "Annuler",
 	"annotation.create.send": "Envoyer",
-	"annotation.hintLabel": "{{count}} annotation",
+	"annotation.hintLabel": "{{count}}annotation",
 	"annotation.hintLabel_many": "{{count}} annotations",
 	"annotation.hintLabel_one": "{{count}} annotation",
 	"annotation.hintLabel_other": "{{count}} annotations",

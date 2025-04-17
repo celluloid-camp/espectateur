@@ -91,7 +91,7 @@
 	"project.edit.success": "Le projet a été mise à jour",
 	"project.export": "Exporter les annotations",
 	"project.keywords": "Mots clés",
-	"project.members": "{{ count }} participant",
+	"project.members": "{{ count }} participants",
 	"project.members_many": "{{ count }} participants",
 	"project.members_one": "un participant",
 	"project.members_other": "{{ count }} participants",

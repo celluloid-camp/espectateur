@@ -101,7 +101,7 @@
 	"project.playlist": "Playlist",
 	"project.public": "Public",
 	"project.publicHelper": "A public project will be visible by all users, even logged-out. However, they won't be able to see the annotations and comments, nor to add their own.",
-	"project.share.dialog.description": "To open printable instructions in a new widow ",
+	"project.share.dialog.description": "To open printable instructions in a new window ",
 	"project.share.dialog.linkText": "click here",
 	"project.share.guide.step1": "Open the web page",
 	"project.share.guide.step2": "On the landing page, click 'JOIN PROJECT'",

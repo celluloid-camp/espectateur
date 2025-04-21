@@ -1,9 +1,13 @@
 import { create } from 'zustand'
+import { useShallow } from 'zustand/react/shallow'
+
 
 interface AutoDetectionState {
   isEnabled: boolean
   setIsEnabled: (enabled: boolean) => void
   autoDetection: boolean
+  autoDetectionMode: "auto" | "auto/reco/me" | "auto/reco/allusers",
+  setAutoDetectionMode: (autoDetectionMode: "auto" | "auto/reco/me" | "auto/reco/allusers") => void
   setAutoDetection: (autoDetection: boolean) => void
   detectedEmotion: string | null
   setDetectedEmotion: (detectedEmotion: string | null) => void
@@ -16,7 +20,17 @@ export const useAutoDetectionStore = create<AutoDetectionState>((set) => ({
   setAutoDetection: (autoDetection) => set({ autoDetection, detectedEmotion: null }),
   detectedEmotion: null,
   setDetectedEmotion: (detectedEmotion) => set({ detectedEmotion }),
+  autoDetectionMode: "auto",
+  setAutoDetectionMode: (autoDetectionMode: "auto" | "auto/reco/me" | "auto/reco/allusers") => set({ autoDetectionMode }),
 }))
+
+
+export const useAutoDetectionMode = () => useAutoDetectionStore(useShallow((state) => ({
+  autoDetection: state.autoDetection,
+  autoDetectionMode: state.autoDetectionMode,
+  setAutoDetectionMode: state.setAutoDetectionMode,
+}))
+)
 
 
 interface PlayerModeState {
@@ -28,3 +42,5 @@ export const usePlayerModeStore = create<PlayerModeState>((set) => ({
   mode: "analysis",
   setMode: (mode) => set({ mode }),
 }))
+
+

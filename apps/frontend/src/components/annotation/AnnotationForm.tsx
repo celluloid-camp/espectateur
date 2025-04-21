@@ -4,13 +4,13 @@ import PauseCircleIcon from "@mui/icons-material/PauseCircle";
 import PauseCircleOutlineOutlinedIcon from "@mui/icons-material/PauseCircleOutlineOutlined";
 import RateReviewIcon from "@mui/icons-material/RateReview";
 import {
-  Box,
-  Button,
-  Checkbox,
-  ClickAwayListener,
-  FormControlLabel,
-  InputBase,
-  Tooltip,
+	Box,
+	Button,
+	Checkbox,
+	ClickAwayListener,
+	FormControlLabel,
+	InputBase,
+	Tooltip,
 } from "@mui/material";
 import { grey } from "@mui/material/colors";
 import { useFormik } from "formik";
@@ -23,286 +23,309 @@ import { type ProjectById, trpc, type UserMe } from "~utils/trpc";
 import { ConceptSelector } from "./concept-selector";
 import { DurationSlider } from "./DurationSlider";
 import {
-  useAnnotationFormVisible,
-  useContextualEditorPosition,
-  useContextualEditorVisibleState,
-  useEditAnnotation,
-  useEmotionEditor,
+	useAnnotationFormVisible,
+	useContextualEditorPosition,
+	useContextualEditorVisibleState,
+	useEditAnnotation,
+	useEmotionEditor,
 } from "./useAnnotationEditor";
 import { EmotionsPalette } from "../emotion-detection/emotion-palette";
 import {
-  useAutoDetectionStore,
-  usePlayerModeStore,
+	useAutoDetectionMode,
+	usePlayerModeStore,
 } from "../emotion-detection/store";
 
 type AnnotationFormProps = {
-  duration: number;
-  project: ProjectById;
-  user: UserMe;
+	duration: number;
+	project: ProjectById;
+	user: UserMe;
 };
 
 export const AnnotationForm: React.FC<AnnotationFormProps> = (props) => {
-  const [showForm, setShowForm] = useAnnotationFormVisible();
+	const [showForm, setShowForm] = useAnnotationFormVisible();
 
-  const { t } = useTranslation();
+	const { t } = useTranslation();
 
-  const handleOpen = () => {
-    setShowForm(true);
-  };
+	const handleOpen = () => {
+		setShowForm(true);
+	};
 
-  const handleClose = () => {
-    setShowForm(false);
-  };
+	const handleClose = () => {
+		setShowForm(false);
+	};
 
-  if (!showForm) {
-    return (
-      <Button
-        variant="outlined"
-        onClick={handleOpen}
-        color="secondary"
-        sx={{ mx: 5 }}
-        startIcon={<RateReviewIcon />}
-      >
-        {t("annotation.form.add-annotation")}
-      </Button>
-    );
-  }
-  return <AnnotationFormContent onClose={handleClose} {...props} />;
+	if (!showForm) {
+		return (
+			<Button
+				variant="outlined"
+				onClick={handleOpen}
+				color="secondary"
+				sx={{ mx: 5 }}
+				startIcon={<RateReviewIcon />}
+			>
+				{t("annotation.form.add-annotation")}
+			</Button>
+		);
+	}
+	return <AnnotationFormContent onClose={handleClose} {...props} />;
 };
 
 export const AnnotationFormContent: React.FC<
-  AnnotationFormProps & { onClose: () => void }
+	AnnotationFormProps & { onClose: () => void }
 > = ({ duration, project, onClose }) => {
-  const utils = trpc.useUtils();
-  const addMutation = trpc.annotation.add.useMutation();
-  const editMutation = trpc.annotation.edit.useMutation();
+	const utils = trpc.useUtils();
+	const addMutation = trpc.annotation.add.useMutation();
+	const editMutation = trpc.annotation.edit.useMutation();
 
-  const [contextEditorVisible, setContextualEditorVisible] =
-    useContextualEditorVisibleState();
+	const [contextEditorVisible, setContextualEditorVisible] =
+		useContextualEditorVisibleState();
 
-  const [contextualEditorPosition, setContextualEditorPosition] =
-    useContextualEditorPosition();
+	const [contextualEditorPosition, setContextualEditorPosition] =
+		useContextualEditorPosition();
 
-  const [editedAnnotation, setEditedAnnotation] = useEditAnnotation();
+	const [editedAnnotation, setEditedAnnotation] = useEditAnnotation();
 
-  const videoProgress = useVideoPlayerProgressValue();
+	const videoProgress = useVideoPlayerProgressValue();
 
-  const playerMode = usePlayerModeStore((state) => state.mode);
-  const autoDetection = useAutoDetectionStore((state) => state.autoDetection);
+	const playerMode = usePlayerModeStore((state) => state.mode);
 
-  const validationSchema = Yup.object().shape({
-    startTime: Yup.number(),
-    stopTime: Yup.number(),
-    pause: Yup.boolean(),
-    text: Yup.string()
-      .min(2, "Comment doit comporter minimum 5 character")
-      .required("Commentaire est obligatoire"),
-    emotion: Yup.string(),
-  });
+	const { autoDetection, autoDetectionMode } = useAutoDetectionMode();
 
-  const formik = useFormik({
-    initialValues: editedAnnotation
-      ? {
-          startTime: editedAnnotation.startTime,
-          stopTime: editedAnnotation.stopTime,
-          pause: editedAnnotation.pause,
-          text: editedAnnotation.text,
-          emotion: editedAnnotation.emotion,
-        }
-      : {
-          startTime: videoProgress,
-          stopTime: videoProgress + 600, // 10 minutes
-          pause: true,
-          text: "",
-          emotion: "",
-        },
-    validateOnMount: false,
-    validationSchema: validationSchema,
-    validateOnBlur: true,
-    validateOnChange: true,
-    onSubmit: async (values) => {
-      if (editedAnnotation) {
-        const changedAnnotation = await editMutation.mutateAsync({
-          annotationId: editedAnnotation.id,
-          projectId: project.id,
-          text: values.text,
-          startTime: values.startTime,
-          stopTime: values.stopTime,
-          pause: values.pause,
-          extra: contextualEditorPosition ? contextualEditorPosition : {},
-        });
-        if (changedAnnotation) {
-          formik.resetForm();
-          setContextualEditorPosition(undefined);
-          setEditedAnnotation(undefined);
-          handleClose();
-        }
-      } else {
-        const newAnnotation = await addMutation.mutateAsync({
-          projectId: project.id,
-          text: values.text,
-          startTime: values.startTime,
-          stopTime: values.stopTime,
-          pause: values.pause,
-          emotion: values.emotion ?? undefined,
-          mode: playerMode,
-          detection: autoDetection ? "auto" : undefined,
-          // detection: values.detection,
-          extra: contextualEditorPosition ? contextualEditorPosition : {},
-        });
-        if (newAnnotation) {
-          formik.resetForm();
-          setContextualEditorPosition(undefined);
-          handleClose();
-        }
-      }
+	const validationSchema = Yup.object().shape({
+		startTime: Yup.number(),
+		stopTime: Yup.number(),
+		pause: Yup.boolean(),
+		text: Yup.string()
+			.min(2, "Comment doit comporter minimum 5 character")
+			.required("Commentaire est obligatoire"),
+		emotion: Yup.string(),
+		concept: Yup.string(),
+	});
 
-      utils.annotation.byProjectId.invalidate({ id: project.id });
-    },
-  });
+	const formik = useFormik({
+		initialValues: editedAnnotation
+			? {
+					startTime: editedAnnotation.startTime,
+					stopTime: editedAnnotation.stopTime,
+					pause: editedAnnotation.pause,
+					text: editedAnnotation.text,
+					emotion: editedAnnotation.emotion,
+				}
+			: {
+					startTime: videoProgress,
+					stopTime: videoProgress + 600, // 10 minutes
+					pause: true,
+					text: "",
+					emotion: "",
+					concept: "",
+				},
+		validateOnMount: false,
+		validationSchema: validationSchema,
+		validateOnBlur: true,
+		validateOnChange: true,
+		onSubmit: async (values) => {
+			if (editedAnnotation) {
+				const changedAnnotation = await editMutation.mutateAsync({
+					annotationId: editedAnnotation.id,
+					projectId: project.id,
+					text: values.text,
+					startTime: values.startTime,
+					stopTime: values.stopTime,
+					pause: values.pause,
+					extra: contextualEditorPosition ? contextualEditorPosition : {},
+				});
+				if (changedAnnotation) {
+					formik.resetForm();
+					setContextualEditorPosition(undefined);
+					setEditedAnnotation(undefined);
+					handleClose();
+				}
+			} else {
+				const newAnnotation = await addMutation.mutateAsync({
+					projectId: project.id,
+					text: values.text,
+					startTime: values.startTime,
+					stopTime: values.stopTime,
+					pause: values.pause,
+					emotion: values.emotion ?? undefined,
+					mode: playerMode,
+					detection: autoDetection ? autoDetectionMode : undefined,
+					concept: values.concept,
+					extra: contextualEditorPosition ? contextualEditorPosition : {},
+				});
+				if (newAnnotation) {
+					formik.resetForm();
+					setContextualEditorPosition(undefined);
+					handleClose();
+				}
+			}
 
-  const handleClickAway = () => {};
+			utils.annotation.byProjectId.invalidate({ id: project.id });
+		},
+	});
 
-  const handleClose = () => {
-    setContextualEditorVisible(false);
-    onClose();
-  };
+	const handleClickAway = () => {};
 
-  return (
-    <ClickAwayListener onClickAway={handleClickAway}>
-      <Box
-        component="form"
-        onSubmit={formik.handleSubmit}
-        sx={{ flexShrink: 0, pt: 5, paddingX: 2 }}
-      >
-        <Box sx={{ paddingX: 2 }}>
-          <DurationSlider
-            duration={duration}
-            startTime={formik.values.startTime}
-            stopTime={formik.values.stopTime}
-            onChange={(start, stop) => {
-              formik.setFieldValue("startTime", start);
-              formik.setFieldValue("stopTime", stop);
-            }}
-          />
-        </Box>
-        <Box
-          sx={{
-            p: "2px 4px",
-            display: "flex",
-            alignItems: "center",
-            backgroundColor: grey[800],
-            borderRadius: 1,
-          }}
-        >
-          <InputBase
-            id="text"
-            name="text"
-            sx={{ ml: 1, flex: 1, color: "white" }}
-            placeholder="Saissez votre annotation"
-            multiline
-            maxRows={5}
-            minRows={2}
-            value={formik.values.text}
-            onChange={formik.handleChange}
-            onBlur={formik.handleBlur}
-            error={!!formik.errors.text}
-            disabled={formik.isSubmitting}
-            inputProps={{
-              "aria-label": "Saissez votre annotation",
-              maxLength: 250,
-            }}
-          />
-        </Box>
+	const handleClose = () => {
+		setContextualEditorVisible(false);
+		onClose();
+	};
 
-        <EmotionsPalette
-          emotion={formik.values.emotion}
-          projectId={project.id}
-          semiAutoAnnotation={false}
-          semiAutoAnnotationMe={false}
-          position={videoProgress}
-          onEmotionChange={(emotion) => {
-            formik.setFieldValue("emotion", emotion);
-          }}
-        />
+	return (
+		<ClickAwayListener onClickAway={handleClickAway}>
+			<Box
+				component="form"
+				onSubmit={formik.handleSubmit}
+				sx={{ flexShrink: 0, pt: 5, paddingX: 2 }}
+			>
+				<Box sx={{ paddingX: 2 }}>
+					<DurationSlider
+						duration={duration}
+						startTime={formik.values.startTime}
+						stopTime={formik.values.stopTime}
+						onChange={(start, stop) => {
+							formik.setFieldValue("startTime", start);
+							formik.setFieldValue("stopTime", stop);
+						}}
+					/>
+				</Box>
+				<Box
+					sx={{
+						p: "2px 4px",
+						display: "flex",
+						alignItems: "center",
+						backgroundColor: grey[800],
+						borderRadius: 1,
+					}}
+				>
+					<InputBase
+						id="text"
+						name="text"
+						sx={{ ml: 1, flex: 1, color: "white" }}
+						placeholder="Saissez votre annotation"
+						multiline
+						maxRows={5}
+						minRows={2}
+						value={formik.values.text}
+						onChange={formik.handleChange}
+						onBlur={formik.handleBlur}
+						error={!!formik.errors.text}
+						disabled={formik.isSubmitting}
+						inputProps={{
+							"aria-label": "Saissez votre annotation",
+							maxLength: 250,
+						}}
+					/>
+				</Box>
 
-        <Box
-          display={"flex"}
-          justifyContent={"space-between"}
-          alignItems={"center"}
-        >
-          <Box>
-            <Tooltip title="Placer un repère visuel" arrow>
-              <FormControlLabel
-                label="Contexte"
-                sx={{ color: "white" }}
-                checked={contextEditorVisible}
-                onChange={() =>
-                  setContextualEditorVisible(!contextEditorVisible)
-                }
-                control={
-                  <Checkbox
-                    size="small"
-                    icon={<CenterFocusStrongOutlinedIcon />}
-                    checkedIcon={<CenterFocusStrongIcon color="secondary" />}
-                  />
-                }
-              />
-            </Tooltip>
+				<EmotionsPalette
+					emotion={formik.values.emotion}
+					projectId={project.id}
+					semiAutoAnnotation={false}
+					semiAutoAnnotationMe={false}
+					position={videoProgress}
+					onEmotionChange={(emotion) => {
+						formik.setFieldValue("emotion", emotion);
+					}}
+				/>
 
-            <Tooltip title={"Pause automatique à l'ouverture"} arrow>
-              <FormControlLabel
-                sx={{ color: "white" }}
-                label="Pause"
-                control={
-                  <Checkbox
-                    size="small"
-                    color="secondary"
-                    id="pause"
-                    name="pause"
-                    checked={formik.values.pause}
-                    onChange={formik.handleChange}
-                    icon={<PauseCircleOutlineOutlinedIcon />}
-                    checkedIcon={<PauseCircleIcon />}
-                  />
-                }
-              />
-            </Tooltip>
-          </Box>
-          <ConceptSelector />
-          <Box sx={{ marginY: 1 }}>
-            <Button
-              size="small"
-              onClick={handleClose}
-              sx={{
-                color: grey[500],
-              }}
-            >
-              <Trans i18nKey="annotation.create.cancel">Annuler</Trans>
-            </Button>
-            <Button
-              size="small"
-              variant="contained"
-              disabled={!formik.isValid || formik.isSubmitting}
-              disableElevation
-              sx={{
-                borderRadius: 10,
-                "&:disabled": {
-                  color: grey[500],
-                  backgroundColor: grey[700],
-                },
-              }}
-              onClick={() => formik.handleSubmit()}
-            >
-              {editedAnnotation ? (
-                <Trans i18nKey="annotation.edit.send">Modifier</Trans>
-              ) : (
-                <Trans i18nKey="annotation.create.send">Envoyer</Trans>
-              )}
-            </Button>
-          </Box>
-        </Box>
-      </Box>
-    </ClickAwayListener>
-  );
+				<Box
+					display={"flex"}
+					justifyContent={"space-between"}
+					alignItems={"center"}
+				>
+					<Box>
+						<Tooltip title="Placer un repère visuel" arrow>
+							<FormControlLabel
+								label="Contexte"
+								sx={{ color: "white" }}
+								slotProps={{
+									typography: {
+										fontSize: {
+											xs: "8px",
+											sm: "12px",
+										},
+									},
+								}}
+								checked={contextEditorVisible}
+								onChange={() =>
+									setContextualEditorVisible(!contextEditorVisible)
+								}
+								control={
+									<Checkbox
+										size="small"
+										icon={<CenterFocusStrongOutlinedIcon />}
+										checkedIcon={<CenterFocusStrongIcon color="secondary" />}
+									/>
+								}
+							/>
+						</Tooltip>
+
+						<Tooltip title={"Pause automatique à l'ouverture"} arrow>
+							<FormControlLabel
+								sx={{ color: "white" }}
+								slotProps={{
+									typography: {
+										fontSize: {
+											xs: "8px",
+											sm: "12px",
+										},
+									},
+								}}
+								label="Pause"
+								control={
+									<Checkbox
+										size="small"
+										color="secondary"
+										id="pause"
+										name="pause"
+										checked={formik.values.pause}
+										onChange={formik.handleChange}
+										icon={<PauseCircleOutlineOutlinedIcon />}
+										checkedIcon={<PauseCircleIcon />}
+									/>
+								}
+							/>
+						</Tooltip>
+					</Box>
+					<ConceptSelector
+						onChange={(concept) => {
+							formik.setFieldValue("concept", concept);
+						}}
+					/>
+					<Box sx={{ marginY: 1 }} flexDirection={"row"}>
+						<Button
+							size="small"
+							onClick={handleClose}
+							sx={{
+								color: grey[500],
+							}}
+						>
+							<Trans i18nKey="annotation.create.cancel">Annuler</Trans>
+						</Button>
+						<Button
+							size="small"
+							variant="contained"
+							disabled={!formik.isValid || formik.isSubmitting}
+							disableElevation
+							sx={{
+								borderRadius: 10,
+								"&:disabled": {
+									color: grey[500],
+									backgroundColor: grey[700],
+								},
+							}}
+							onClick={() => formik.handleSubmit()}
+						>
+							{editedAnnotation ? (
+								<Trans i18nKey="annotation.edit.send">Modifier</Trans>
+							) : (
+								<Trans i18nKey="annotation.create.send">Envoyer</Trans>
+							)}
+						</Button>
+					</Box>
+				</Box>
+			</Box>
+		</ClickAwayListener>
+	);
 };

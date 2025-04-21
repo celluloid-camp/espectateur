@@ -1,7 +1,7 @@
 import { prisma } from '@celluloid/prisma';
 import type { Annotation } from '@celluloid/prisma';
 import { Prisma } from '@celluloid/prisma';
-import { toSrt } from '@celluloid/utils';
+import { formatTimeFromSeconds, toSrt } from '@celluloid/utils';
 import { TRPCError } from '@trpc/server';
 import { observable } from '@trpc/server/observable';
 import { EventEmitter } from 'node:events';
@@ -96,7 +96,8 @@ export const annotationRouter = router({
         extra: z.any(),
         emotion: z.string().optional(),
         mode: z.enum(["performance", "analysis"]).optional(),
-        detection: z.enum(["auto", "semi-auto", "semi-auto-mine"]).optional()
+        concept: z.string().optional(),
+        detection: z.enum(["auto", "auto/reco/me", "auto/reco/allusers"]).optional()
       }),
     )
     .mutation(async ({ input, ctx }) => {
@@ -112,7 +113,8 @@ export const annotationRouter = router({
             extra: input.extra,
             emotion: input.emotion,
             mode: input.mode,
-            detection: input.detection
+            detection: input.detection,
+            concept: input.concept
           }
           // select: defaultPostSelect,
         });
@@ -135,6 +137,7 @@ export const annotationRouter = router({
         projectId: z.string().optional(),
         extra: z.any().optional(),
         emotion: z.string().optional(),
+        concept: z.string().optional(),
       }),
     )
     .mutation(async ({ input, ctx }) => {
@@ -168,6 +171,7 @@ export const annotationRouter = router({
             projectId: input.projectId ?? annotation.projectId,
             extra: input.extra ?? annotation.extra,
             emotion: input.emotion ?? annotation.emotion,
+            concept: input.concept ?? annotation.concept,
           },
         });
 
@@ -257,10 +261,11 @@ export const annotationRouter = router({
       });
 
       const formated = annotations.map((a) => ({
-        startTime: a.startTime,
-        endTime: a.stopTime,
+        date: a.createdAt?.toLocaleString(),
+        start: a.startTime,
+        end: a.stopTime,
         text: a.text,
-        comments: a.comments.map((c) => c.text),
+        // comments: a.comments.map((c) => c.text),
         user: a.user.username,
         project: project.title,
         contextX: a.extra ? a.extra.relativeX : null,
@@ -268,18 +273,23 @@ export const annotationRouter = router({
         emotion: a.emotion,
         mode: a.mode,
         detection: a.detection,
+        concept: a.concept,
+      }))
+
+      const sorted = formated.sort((a, b) => a.start - b.start).map((a) => ({
+        ...a,
+        start: formatTimeFromSeconds(a.start),
+        end: formatTimeFromSeconds(a.end),
       }))
 
       let content = "";
       if (format === 'xml') {
-        content = toXML("annotations", formated, { cdataKeys: ['comments', 'text'] });
+        content = toXML("annotations", sorted, { cdataKeys: ['comments', 'text'] });
       } else if (format === "csv") {
-        const sorted = formated.sort((a, b) => a.startTime - b.startTime)
         content = Papa.unparse(sorted);
       } else if (format === "srt") {
         content = toSrt(formated);
       } else if (format === "xlsx") {
-        const sorted = formated.sort((a, b) => a.startTime - b.startTime);
         const worksheet = XLSX.utils.json_to_sheet(sorted);
         const dublinData = Object.entries(project.dublin as Record<string, string>).reduce((acc, [key, value]) => {
           acc[key] = value;
@@ -311,6 +321,7 @@ export const annotationRouter = router({
           mode: true,
           detection: true,
           createdAt: true,
+          concept: true,
         },
         orderBy: {
           createdAt: 'desc',

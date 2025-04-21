@@ -1,6 +1,6 @@
 interface Subtitle {
-  startTime: number;
-  endTime: number;
+  start: number;
+  end: number;
   text: string;
 }
 
@@ -8,11 +8,11 @@ export function toSrt(json: Subtitle[]): string {
   let srt = '';
 
   json.forEach((subtitle: Subtitle, index: number) => {
-    const { startTime, endTime, text } = subtitle;
+    const { start, end, text } = subtitle;
 
     // Format the start and end time in HH:MM:SS,mmm format
-    const formattedStartTime = formatTime(startTime);
-    const formattedEndTime = formatTime(endTime);
+    const formattedStartTime = formatTime(start);
+    const formattedEndTime = formatTime(end);
 
     // Add the subtitle index, start and end time, and text to the SRT format
     srt += `${index + 1}\n${formattedStartTime} --> ${formattedEndTime}\n${text}\n\n`;

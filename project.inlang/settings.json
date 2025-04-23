@@ -1,6 +1,5 @@
 {
   "$schema": "https://inlang.com/schema/project-settings",
-  "baseLocale": "en",
   "sourceLanguageTag": "en",
   "languageTags": [
     "en",
@@ -8,15 +7,7 @@
     "es",
     "hr",
     "id",
-    "pt"
-  ],
-  "locales": [
-    "en",
-    "fr",
-    "es",
-    "hr",
-    "id",
-    "pt"
+    "ro"
   ],
   "modules": [
     "https://cdn.jsdelivr.net/npm/@inlang/plugin-i18next@latest/dist/index.js",

@@ -245,6 +245,7 @@
   "profile.update.bio": "Biographie",
   "profile.update.submit": "Sauvegarder",
   "profile.security.old-password.label": "Mot de passe actuel",
+  "profile.security.change-password.success": "Mot de passe changé avec succès",
   "profile.security.new-password.label": "Nouveau mot de passe",
   "profile.security.confirmation-password.label": "Confirmez le mot de passe",
   "profile.security.password-incorrect": "Mot de passe incorrect",

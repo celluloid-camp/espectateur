@@ -37,13 +37,16 @@ export const chaptersQueue = createQueue<ChapterJobPayload, JobResult>(
 			throw new Error("No video data found");
 		}
 
-		const videoUrl = metadata.streamingPlaylists[0]?.files
-			.sort((a, b) => a.size - b.size) // Sort files by size in ascending order
-			.find((file) => file.fileDownloadUrl)?.fileDownloadUrl; // Find the first file with a download URL
+		const videoUrl = metadata.streamingPlaylists
+			? metadata.streamingPlaylists[0]?.files
+					.sort((a, b) => a.size - b.size) // Sort files by size in ascending order
+					.find((file) => file.fileDownloadUrl)?.fileDownloadUrl
+			: undefined;
 		const duration = metadata.duration || 0;
 
 		if (!videoUrl) {
 			console.error("No video file found");
+			await job.progress(100);
 			return { status: 404 };
 		}
 
@@ -64,7 +67,6 @@ export const chaptersQueue = createQueue<ChapterJobPayload, JobResult>(
 				videoUrl,
 				duration,
 			});
-
 			await job.progress(70);
 			const thumbnailStorages = await prisma.storage.createManyAndReturn({
 				data: chapters.scenes.map((scene) => ({

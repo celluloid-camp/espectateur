@@ -5,16 +5,17 @@ import { publicProcedure, router } from "../trpc";
 import { annotationRouter } from "./annotation";
 import { chapterRouter } from "./chapter";
 import { commentRouter } from "./comment";
+import { noteRouter } from "./note";
 import { playlistRouter } from "./playlist";
 import { projectRouter } from "./project";
 import { storageRouter } from "./storage";
+import { transcriptRouter } from "./transcript";
 import { userRouter } from "./user";
-import { noteRouter } from "./note";
-
 export const appRouter = router({
 	healthcheck: publicProcedure.query(() => "yay!"),
 	project: projectRouter,
 	note: noteRouter,
+	transcript: transcriptRouter,
 	user: userRouter,
 	playlist: playlistRouter,
 	annotation: annotationRouter,

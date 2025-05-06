@@ -11,10 +11,11 @@ import {
 import React, { Suspense, useEffect, useMemo, useRef, useState } from "react";
 import { ErrorBoundary } from "react-error-boundary";
 import { useParams } from "react-router-dom";
+
 import { DubinPanel } from "~/components/project/dubin-panel";
 import { ProjectNotes } from "~/components/project/ProjectNotes";
+import { ProjectTranscript } from "~/components/project/ProjectTranscript";
 import { useSession } from "~/lib/auth-client";
-
 import { AnnotationHints } from "~components/annotation/AnnotationHints";
 import { AnnotationPanel } from "~components/annotation/AnnotationPanel";
 import { ContextualAnnotations } from "~components/annotation/ContextualAnnotations";
@@ -25,8 +26,8 @@ import { SideBar } from "~components/project/SideBar";
 import { useVideoPlayerProgressValue } from "~components/project/useVideoPlayer";
 import { VideoPlayer } from "~components/project/VideoPlayer";
 import { useVideoPlayerEvent } from "~hooks/use-video-player";
-import { type AnnotationByProjectId, trpc } from "~utils/trpc";
 import type { ProjectById, UserMe } from "~utils/trpc";
+import { type AnnotationByProjectId, trpc } from "~utils/trpc";
 
 interface Props {
 	project: ProjectById;
@@ -185,6 +186,7 @@ const ProjectMainGrid: React.FC<Props> = ({ project, user }) => {
 
 const ProjectContent = ({ project, user }: Props) => {
 	const { data: session } = useSession();
+
 	return (
 		<Box display={"flex"} flexDirection={"column"}>
 			<Suspense
@@ -250,6 +252,25 @@ const ProjectContent = ({ project, user }: Props) => {
 										</Suspense>
 									</ErrorBoundary>
 								) : null}
+								<ErrorBoundary
+									FallbackComponent={() => (
+										<Typography variant="h6" color="error.dark">
+											Failed to load transcript
+										</Typography>
+									)}
+								>
+									<Suspense
+										fallback={
+											<Skeleton
+												variant="rectangular"
+												height={300}
+												sx={{ borderRadius: 2, my: 2 }}
+											/>
+										}
+									>
+										<ProjectTranscript project={project} user={user} />
+									</Suspense>
+								</ErrorBoundary>
 							</Grid>
 							<Grid item xs={12} md={4} lg={4}>
 								<SideBar project={project} user={user} />

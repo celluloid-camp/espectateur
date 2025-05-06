@@ -227,7 +227,7 @@ export const annotationRouter = router({
     .input(
       z.object({
         projectId: z.string(),
-        format: z.enum(["csv", "xml", "srt", "xlsx"])
+        format: z.enum(["csv", "xml", "srt", "ods"])
       })
     ).mutation(async ({ input }) => {
       const { format, projectId } = input;
@@ -271,7 +271,7 @@ export const annotationRouter = router({
         contextX: a.extra ? a.extra.relativeX : null,
         contextY: a.extra ? a.extra.relativeY : null,
         emotion: a.emotion,
-        mode: a.mode,
+        performance: a.mode === "performance" ? "on" : "off",
         detection: a.detection,
         concept: a.concept,
       }))
@@ -289,7 +289,7 @@ export const annotationRouter = router({
         content = Papa.unparse(sorted);
       } else if (format === "srt") {
         content = toSrt(formated);
-      } else if (format === "xlsx") {
+      } else if (format === "ods") {
         const worksheet = XLSX.utils.json_to_sheet(sorted);
         const dublinData = Object.entries(project.dublin as Record<string, string>).reduce((acc, [key, value]) => {
           acc[key] = value;
@@ -300,7 +300,7 @@ export const annotationRouter = router({
         const workbook = XLSX.utils.book_new();
         XLSX.utils.book_append_sheet(workbook, worksheet, "Annotations");
         XLSX.utils.book_append_sheet(workbook, dublinMetadata, "Metadata Dublin");
-        content = XLSX.write(workbook, { type: 'base64', bookType: 'xlsx' });
+        content = XLSX.write(workbook, { type: 'base64', bookType: 'ods' });
       }
       return content
     }),

@@ -13,7 +13,6 @@ import { useNavigate } from "react-router";
 
 import { getButtonLink } from "~components/ButtonLink";
 import { Footer } from "~components/Footer";
-import { LogoWithLabel } from "~components/LogoWithLabel";
 import { SigninMenu } from "~components/SigninMenu";
 
 import { LanguageMenu } from "./LanguageMenu";
@@ -55,7 +54,7 @@ export const AppBarMenu: React.FC<BoxProps> = ({ children }) => {
 								fontFamily={"abril_fatfaceregular"}
 								color="black"
 							>
-								e-spect@teur
+								e-spect@tor
 							</Typography>
 						</Button>
 					</Box>

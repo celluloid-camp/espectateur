@@ -175,7 +175,11 @@ export const AnnotationItem: React.FC<AnnotationItemProps> = ({
 										justifyContent: "center",
 									}}
 								>
-									{getEmojiFromName(annotation.emotion)}
+									<img
+										src={`/emojis/${getEmojiFromName(annotation.emotion)}.png`}
+										alt={annotation.emotion}
+										style={{ width: 20, height: 20 }}
+									/>
 								</Box>
 							</Tooltip>
 						)}

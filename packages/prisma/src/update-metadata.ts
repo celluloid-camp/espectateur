@@ -15,11 +15,10 @@ const getProjectMetadata = async (project: Project) => {
       thumbnailURL: `https://${project.host}${data.thumbnailPath}`,
       metadata: data,
     };
-  } else {
-    throw new Error(
-      `Could not perform PeerTube API request (error ${response.status})`,
-    );
   }
+  throw new Error(
+    `Could not perform PeerTube API request (error ${response.status})`,
+  );
 };
 
 async function main() {

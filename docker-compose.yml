@@ -69,3 +69,8 @@ services:
       - redis:/redis:/data
     networks:
       - local
+
+
+
+
+

@@ -312,6 +312,11 @@ function AdvancedControls({
 }) {
 	const { mode, setMode } = usePlayerModeStore();
 	const { t } = useTranslation();
+
+	if (!user) {
+		return null;
+	}
+
 	return (
 		<Stack
 			direction="row"

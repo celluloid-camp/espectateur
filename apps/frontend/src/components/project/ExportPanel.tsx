@@ -27,14 +27,14 @@ export const ExportPanel: React.FC<Props> = ({ project }: Props) => {
 	const utils = trpc.useUtils();
 	const { enqueueSnackbar } = useSnackbar();
 
-	const handleExport = async (format: "csv" | "xml" | "srt" | "xlsx") => {
+	const handleExport = async (format: "csv" | "xml" | "srt" | "ods") => {
 		const data = await utils.client.annotation.export.mutate({
 			projectId: project.id,
 			format,
 		});
 
 		let blob: Blob;
-		if (format === "xlsx") {
+		if (format === "ods") {
 			// Convert base64 to blob for xlsx
 			const binaryString = window.atob(data);
 			const bytes = new Uint8Array(binaryString.length);
@@ -87,14 +87,14 @@ export const ExportPanel: React.FC<Props> = ({ project }: Props) => {
 					<Button
 						onClick={() => handleExport("ods")}
 						endIcon={
-							<Tooltip title={"XLSX with Dublin metadata"}>
+							<Tooltip title={"OpenDocument Spreadsheet with Dublin metadata"}>
 								<IconButton size="small" sx={{ ml: -1 }}>
 									<InfoOutlined fontSize="small" />
 								</IconButton>
 							</Tooltip>
 						}
 					>
-						XLSX
+						ODS
 					</Button>
 				</ButtonGroup>
 			</Stack>

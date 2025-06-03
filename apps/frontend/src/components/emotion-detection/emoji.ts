@@ -10,51 +10,51 @@ export interface EmotionRecommended {
 
 export const emojisArray: Emoji[] = [
   {
-    label: "👍",
+    label: "1F44D",
     value: "iLike",
   },
   {
-    label: "👎",
+    label: "1F44E",
     value: "iDontLike",
   },
   {
-    label: "😐",
+    label: "1F610",
     value: "neutral",
   },
   {
-    label: "😮",
+    label: "1F62F",
     value: "surprised",
   },
   {
-    label: "😄",
+    label: "1F601",
     value: "smile",
   },
   {
-    label: "😂",
+    label: "1F602",
     value: "laugh",
   },
   {
-    label: "😠",
+    label: "1F620",
     value: "angry",
   },
   {
-    label: "☹️",
+    label: "1F61E",
     value: "sad",
   },
   {
-    label: "🥹",
+    label: "1F979",
     value: "empathy",
   },
   {
-    label: "😨",
+    label: "1F628",
     value: "fearful",
   },
   {
-    label: "🤮",
+    label: "1F92E",
     value: "disgusted",
   },
   {
-    label: "🤔",
+    label: "1F9D0",
     value: "itsStrange",
   },
 ];

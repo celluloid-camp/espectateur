@@ -90,7 +90,11 @@ const AnnotationHintsItem: React.FC<AnnotationHintsItemProps> = ({
                       justifyContent: "center",
                     }}
                   >
-                    {getEmojiFromName(annotation.emotion)}
+                    <img
+                      src={`/emojis/${getEmojiFromName(annotation.emotion)}.png`}
+                      alt={annotation.emotion}
+                      style={{ width: 20, height: 20 }}
+                    />
                   </Box>
                 )}
               </Box>

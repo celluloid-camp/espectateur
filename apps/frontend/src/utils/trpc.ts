@@ -1,5 +1,5 @@
 import type { AppRouter } from "@celluloid/trpc";
-import { createTRPCReact, TRPCClientError } from '@trpc/react-query';
+import { createTRPCReact, TRPCClientError } from "@trpc/react-query";
 import type { inferRouterInputs, inferRouterOutputs } from "@trpc/server";
 
 export const trpc = createTRPCReact<AppRouter>();
@@ -19,38 +19,36 @@ export const trpc = createTRPCReact<AppRouter>();
 }
  */
 export function isTRPCClientError(
-  cause: unknown,
+	cause: unknown,
 ): cause is TRPCClientError<AppRouter> {
-  return cause instanceof TRPCClientError;
+	return cause instanceof TRPCClientError;
 }
 
 type ArrElement<ArrType> = ArrType extends readonly (infer ElementType)[]
-  ? ElementType
-  : never;
-
+	? ElementType
+	: never;
 
 type RouterOutput = inferRouterOutputs<AppRouter>;
 type RouterInput = inferRouterInputs<AppRouter>;
 
-export type UserMe = RouterOutput['user']['me'];
-
-export type ProjectById = RouterOutput['project']['byId'];
+export type UserMe = RouterOutput["user"]["me"];
+export type Transcript = RouterOutput["transcript"]["byProjectId"];
+export type ProjectById = RouterOutput["project"]["byId"];
 export type ProjectMembers = ArrElement<ProjectById["members"]>;
 
-export type ProjectList = RouterOutput['project']['list'];
-export type ProjectListItem = ArrElement<RouterOutput['project']['list']>;
+export type ProjectList = RouterOutput["project"]["list"];
+export type ProjectListItem = ArrElement<RouterOutput["project"]["list"]>;
 
-export type AnnotationsByProjectId = RouterOutput["annotation"]["byProjectId"]
+export type AnnotationsByProjectId = RouterOutput["annotation"]["byProjectId"];
 export type AnnotationByProjectId = ArrElement<AnnotationsByProjectId>;
-export type AnnotationCommentByProjectId = ArrElement<AnnotationByProjectId["comments"]>;
+export type AnnotationCommentByProjectId = ArrElement<
+	AnnotationByProjectId["comments"]
+>;
 
-
-export type ChaptersByProjectId = RouterOutput["chapter"]["byProjectId"]
+export type ChaptersByProjectId = RouterOutput["chapter"]["byProjectId"];
 export type ChapterByProjectId = ArrElement<ChaptersByProjectId>;
 
+export type AnnotationAddInput = RouterInput["annotation"]["add"];
 
-export type AnnotationAddInput = RouterInput["annotation"]["add"]
-
-
-export type AnnotationStats = RouterOutput["annotation"]["stats"]
-export type AnnotationStatsItem = ArrElement<AnnotationStats>
+export type AnnotationStats = RouterOutput["annotation"]["stats"];
+export type AnnotationStatsItem = ArrElement<AnnotationStats>;

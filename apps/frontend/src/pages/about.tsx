@@ -38,12 +38,8 @@ export const About: React.FC = () => {
 				{t("about.support")}
 			</Typography> */}
 			<Typography variant="subtitle1" gutterBottom={true} pt={1}>
-				<Trans i18nKey={"about.opensource.prefix"}>
-					<Link
-						href="https://canevas.hypotheses.org/a-propos"
-						target="_blank"
-						rel="noreferrer"
-					/>
+				<Trans i18nKey={"about.opensource.github"}>
+					<Link href="https://celluloid.me" target="_blank" rel="noreferrer" />
 					<Link
 						href="https://www.mshparisnord.fr/programmes/consortium-humanum-cannevas/"
 						target="_blank"

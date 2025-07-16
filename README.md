@@ -2,7 +2,7 @@
 <img width="200" alt="Celluloid is a collaborative video annotation application designed for
 educational purposes." src="./docs/assets/logo.svg">
 
-# e-spect@teur
+# e-spect@tor
 
 [![Docker Build](https://github.com/celluloid-camp/espectateur/actions/workflows/build.yml/badge.svg?branch=main)](https://github.com/celluloid-camp/espectateur/actions/workflows/build.yml)
 [![Tests](https://github.com/celluloid-camp/espectateur/actions/workflows/test-ci.yml/badge.svg)](https://celluloid-camp.github.io/celluloid)

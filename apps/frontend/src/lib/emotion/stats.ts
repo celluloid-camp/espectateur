@@ -249,7 +249,6 @@ export function calcJugement(annotations?: AnnotationStatsItem[]) {
         iDontLike++;
       } else if (annotation.emotion === 'itsStrange') {
         itsStrange++;
-        console.log('nb stag ', itsStrange);
       }
     }
   });
@@ -291,12 +290,43 @@ export function calcAnnotationType(annotations?: AnnotationStatsItem[]) {
   });
 
   const data = {
-    labels: ['Automatique', 'SA', 'Commentaire', 'Emojis'],
+    labels: ['Automatique', 'Semi-Auto', 'Commentaire', 'Emojis'],
     datasets: [
       {
         label: 'Modes',
         data: [automatique, sa, comment, emoji],
         backgroundColor: ['#772F67', '#9C2162', '#D03454', '#FF6F50'],
+      },
+    ],
+  };
+  return data;
+}
+
+
+export function calcAnnotationOntology(annotations?: AnnotationStatsItem[]) {
+
+  const concepts = [
+    { name: 'Staging', value: 0 },
+    { name: 'Acting', value: 0 },
+    { name: 'Dramaturgy', value: 0 }
+  ]
+
+  annotations?.map((annotation: AnnotationStatsItem) => {
+    if (annotation.concept) {
+      const concept = concepts.find(concept => concept.name === annotation.concept);
+      if (concept) {
+        concept.value++;
+      }
+    }
+  });
+
+  const data = {
+    labels: ['Staging', 'Acting', 'Dramaturgy'],
+    datasets: [
+      {
+        label: 'Ontology',
+        data: [concepts[0].value, concepts[1].value, concepts[2].value],
+        backgroundColor: ['#772F67', '#9C2162', '#D03454'],
       },
     ],
   };

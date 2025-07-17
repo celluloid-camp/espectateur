@@ -72,7 +72,7 @@ importers:
         version: 2.31.0(@typescript-eslint/parser@5.62.0(eslint@8.57.1)(typescript@5.8.3))(eslint@8.57.1)
       eslint-plugin-jest:
         specifier: latest
-        version: 28.11.0(@typescript-eslint/eslint-plugin@5.62.0(@typescript-eslint/parser@5.62.0(eslint@8.57.1)(typescript@5.8.3))(eslint@8.57.1)(typescript@5.8.3))(eslint@8.57.1)(jest@27.5.1(ts-node@10.9.2(@types/node@20.5.1)(typescript@5.8.3)))(typescript@5.8.3)
+        version: 29.0.1(@typescript-eslint/eslint-plugin@5.62.0(@typescript-eslint/parser@5.62.0(eslint@8.57.1)(typescript@5.8.3))(eslint@8.57.1)(typescript@5.8.3))(eslint@8.57.1)(jest@27.5.1(ts-node@10.9.2(@types/node@20.5.1)(typescript@5.8.3)))(typescript@5.8.3)
       eslint-plugin-prettier:
         specifier: ^4.2.1
         version: 4.2.1(eslint-config-prettier@8.10.0(eslint@8.57.1))(eslint@8.57.1)(prettier@3.5.3)
@@ -93,7 +93,7 @@ importers:
         version: 27.5.1(ts-node@10.9.2(@types/node@20.5.1)(typescript@5.8.3))
       lint-staged:
         specifier: ^14.0.1
-        version: 14.0.1(enquirer@2.3.6)
+        version: 14.0.1(enquirer@2.4.1)
       mock-req:
         specifier: ^0.2.0
         version: 0.2.0
@@ -272,11 +272,11 @@ importers:
         specifier: ^11.0.0
         version: 11.0.0
       i18next:
-        specifier: ^23.5.1
-        version: 23.16.8
+        specifier: ^25.3.2
+        version: 25.3.2(typescript@5.8.3)
       i18next-browser-languagedetector:
-        specifier: ^7.1.0
-        version: 7.2.2
+        specifier: ^8.2.0
+        version: 8.2.0
       linkify-urls:
         specifier: ^4.0.0
         version: 4.1.0
@@ -323,11 +323,11 @@ importers:
         specifier: ^4.0.11
         version: 4.1.2(react@18.2.0)
       react-hook-form:
-        specifier: ^7.54.2
+        specifier: ^7.55.0
         version: 7.55.0(react@18.2.0)
       react-i18next:
-        specifier: ^13.2.2
-        version: 13.5.0(i18next@23.16.8)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
+        specifier: ^15.6.0
+        version: 15.6.0(i18next@25.3.2(typescript@5.8.3))(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(typescript@5.8.3)
       react-markdown:
         specifier: ^10.1.0
         version: 10.1.0(@types/react@18.3.20)(react@18.2.0)
@@ -382,6 +382,9 @@ importers:
       yup-locales:
         specifier: ^1.2.28
         version: 1.2.28
+      zod:
+        specifier: 'catalog:'
+        version: 3.24.2
       zustand:
         specifier: ^5.0.2
         version: 5.0.3(@types/react@18.3.20)(immer@9.0.21)(react@18.2.0)(use-sync-external-store@1.5.0(react@18.2.0))
@@ -418,7 +421,7 @@ importers:
         version: 9.1.3
       '@types/i18next':
         specifier: ^13.0.0
-        version: 13.0.0
+        version: 13.0.0(typescript@5.8.3)
       '@types/i18next-browser-languagedetector':
         specifier: ^3.0.0
         version: 3.0.0
@@ -548,7 +551,7 @@ importers:
         version: 8.10.0(eslint@8.57.1)
       eslint-config-turbo:
         specifier: latest
-        version: 2.5.2(eslint@8.57.1)(turbo@2.5.0)
+        version: 2.5.4(eslint@8.57.1)(turbo@2.5.0)
       eslint-plugin-react:
         specifier: 7.33.2
         version: 7.33.2(eslint@8.57.1)
@@ -664,7 +667,7 @@ importers:
         specifier: ^6.9.9
         version: 6.10.1
       zod:
-        specifier: ^3.23.8
+        specifier: 'catalog:'
         version: 3.24.2
       zx:
         specifier: ^8.2.4
@@ -1586,6 +1589,10 @@ packages:
 
   '@babel/runtime@7.27.0':
     resolution: {integrity: sha512-VtPOkrdPHZsKc/clNqyi9WUA8TINkZ4cGk63UUE3u4pmB2k+ZMQRDuIOagv8UVd6j7k0T3+RRIb7beKTebNbcw==}
+    engines: {node: '>=6.9.0'}
+
+  '@babel/runtime@7.27.6':
+    resolution: {integrity: sha512-vbavdySgbTTrmFE+EsiqUTzlOr5bzlnJtUv9PynGCAKvfQqjIXbvFdumPM/GxMDfyuGMJaJAU6TO4zc1Jf1i8Q==}
     engines: {node: '>=6.9.0'}
 
   '@babel/template@7.27.0':
@@ -6087,6 +6094,10 @@ packages:
     resolution: {integrity: sha512-yjNnPr315/FjS4zIsUxYguYUPP2e1NK4d7E7ZOLiyYCcbFBiTMyID+2wvm2w6+pZ/odMA7cRkjhsPbltwBOrLg==}
     engines: {node: '>=8.6'}
 
+  enquirer@2.4.1:
+    resolution: {integrity: sha512-rRqJg/6gd538VHvR3PSrdRBb/1Vy2YfzHqzvbhGIQpDRKIa4FgV/54b5Q1xYSxOOwKvjXweS26E0Q+nAMwp2pQ==}
+    engines: {node: '>=8.6'}
+
   entities@2.2.0:
     resolution: {integrity: sha512-p92if5Nz619I0w+akJrLZH0MX0Pb5DX39XOwQTtXSdQQOaYH03S1uIQp4mhOZtAXrxq4ViO67YTiLBo2638o9A==}
 
@@ -6235,8 +6246,8 @@ packages:
   eslint-config-react@1.1.7:
     resolution: {integrity: sha512-P4Z6u68wf0BvIvZNu+U8uQsk3DcZ1CcCI1XpUkJlG6vOa+iVcSQLgE01f2DB2kXlKRcT8/3dsH+wveLgvEgbkQ==}
 
-  eslint-config-turbo@2.5.2:
-    resolution: {integrity: sha512-aZdMUCJE5sC9UHZPOu6GiqCijw0HzlcxTbGZeESMFanYShhxrO6mAZy02zYOYK+y184HnxAngcfmtgDt8cIUxw==}
+  eslint-config-turbo@2.5.4:
+    resolution: {integrity: sha512-OpjpDLXIaus0N/Y+pMj17K430xjpd6WTo0xPUESqYZ9BkMngv2n0ZdjktgJTbJVnDmK7gHrXgJAljtdIMcYBIg==}
     peerDependencies:
       eslint: '>6.6.0'
       turbo: '>2.0.0'
@@ -6296,12 +6307,12 @@ packages:
       jest:
         optional: true
 
-  eslint-plugin-jest@28.11.0:
-    resolution: {integrity: sha512-QAfipLcNCWLVocVbZW8GimKn5p5iiMcgGbRzz8z/P5q7xw+cNEpYqyzFMtIF/ZgF2HLOyy+dYBut+DoYolvqig==}
-    engines: {node: ^16.10.0 || ^18.12.0 || >=20.0.0}
+  eslint-plugin-jest@29.0.1:
+    resolution: {integrity: sha512-EE44T0OSMCeXhDrrdsbKAhprobKkPtJTbQz5yEktysNpHeDZTAL1SfDTNKmcFfJkY6yrQLtTKZALrD3j/Gpmiw==}
+    engines: {node: ^20.12.0 || ^22.0.0 || >=24.0.0}
     peerDependencies:
-      '@typescript-eslint/eslint-plugin': ^6.0.0 || ^7.0.0 || ^8.0.0
-      eslint: ^7.0.0 || ^8.0.0 || ^9.0.0
+      '@typescript-eslint/eslint-plugin': ^8.0.0
+      eslint: ^8.57.0 || ^9.0.0
       jest: '*'
     peerDependenciesMeta:
       '@typescript-eslint/eslint-plugin':
@@ -6354,8 +6365,8 @@ packages:
     peerDependencies:
       eslint: ^7.5.0 || ^8.0.0
 
-  eslint-plugin-turbo@2.5.2:
-    resolution: {integrity: sha512-B+vdgOtBuDbRI3sIRayV3HZK1XcwlNuksmJJIgggkXTsNehMEbreJBkIda4qvA/STHnGAl2bUGev0Jx8Rijiwg==}
+  eslint-plugin-turbo@2.5.4:
+    resolution: {integrity: sha512-IZsW61DFj5mLMMaCJxhh1VE4HvNhfdnHnAaXajgne+LUzdyHk2NvYT0ECSa/1SssArcqgTvV74MrLL68hWLLFw==}
     peerDependencies:
       eslint: '>6.6.0'
       turbo: '>2.0.0'
@@ -6632,6 +6643,7 @@ packages:
   fluent-ffmpeg@2.1.3:
     resolution: {integrity: sha512-Be3narBNt2s6bsaqP6Jzq91heDgOEaDCJAXcE3qcma/EJBSy5FB4cvO31XBInuAuKBx8Kptf8dkhjK0IOru39Q==}
     engines: {node: '>=18'}
+    deprecated: Package no longer supported. Contact Support at https://www.npmjs.com/support for more info.
 
   follow-redirects@1.15.9:
     resolution: {integrity: sha512-gew4GsXizNgdoRyqmyfMHyAmXsZDk6mHkSxZFCzW9gwlbtOW44CDtYavM+y+72qD/Vq2l550kMF52DT8fOLJqQ==}
@@ -7104,14 +7116,22 @@ packages:
   i18next-browser-languagedetector@7.2.2:
     resolution: {integrity: sha512-6b7r75uIJDWCcCflmbof+sJ94k9UQO4X0YR62oUfqGI/GjCLVzlCwu8TFdRZIqVLzWbzNcmkmhfqKEr4TLz4HQ==}
 
+  i18next-browser-languagedetector@8.2.0:
+    resolution: {integrity: sha512-P+3zEKLnOF0qmiesW383vsLdtQVyKtCNA9cjSoKCppTKPQVfKd2W8hbVo5ZhNJKDqeM7BOcvNoKJOjpHh4Js9g==}
+
   i18next-http-backend@2.7.3:
     resolution: {integrity: sha512-FgZxrXdRA5u44xfYsJlEBL4/KH3f2IluBpgV/7riW0YW2VEyM8FzVt2XHAOi6id0Ppj7vZvCZVpp5LrGXnc8Ig==}
 
   i18next@22.5.1:
     resolution: {integrity: sha512-8TGPgM3pAD+VRsMtUMNknRz3kzqwp/gPALrWMsDnmC1mKqJwpWyooQRLMcbTwq8z8YwSmuj+ZYvc+xCuEpkssA==}
 
-  i18next@23.16.8:
-    resolution: {integrity: sha512-06r/TitrM88Mg5FdUXAKL96dJMzgqLE5dv3ryBAra4KCwD9mJ4ndOTS95ZuymIGoE+2hzfdaMak2X11/es7ZWg==}
+  i18next@25.3.2:
+    resolution: {integrity: sha512-JSnbZDxRVbphc5jiptxr3o2zocy5dEqpVm9qCGdJwRNO+9saUJS0/u4LnM/13C23fUEWxAylPqKU/NpMV/IjqA==}
+    peerDependencies:
+      typescript: ^5
+    peerDependenciesMeta:
+      typescript:
+        optional: true
 
   iconv-lite@0.4.24:
     resolution: {integrity: sha512-v3MXnZAcvnywkTUEZomIActle7RXXeedOR31wwl7VlyoXO4Qi9arvSenNQWne1TcRwhCL1HwLI21bEqdpj8/rA==}
@@ -9812,17 +9832,20 @@ packages:
       react-native:
         optional: true
 
-  react-i18next@13.5.0:
-    resolution: {integrity: sha512-CFJ5NDGJ2MUyBohEHxljOq/39NQ972rh1ajnadG9BjTk+UXbHLq4z5DKEbEQBDoIhUmmbuS/fIMJKo6VOax1HA==}
+  react-i18next@15.6.0:
+    resolution: {integrity: sha512-W135dB0rDfiFmbMipC17nOhGdttO5mzH8BivY+2ybsQBbXvxWIwl3cmeH3T9d+YPBSJu/ouyJKFJTtkK7rJofw==}
     peerDependencies:
       i18next: '>= 23.2.3'
       react: '>= 16.8.0'
       react-dom: '*'
       react-native: '*'
+      typescript: ^5
     peerDependenciesMeta:
       react-dom:
         optional: true
       react-native:
+        optional: true
+      typescript:
         optional: true
 
   react-is@16.13.1:
@@ -12014,7 +12037,7 @@ snapshots:
       '@babel/helper-compilation-targets': 7.27.0
       '@babel/helper-module-transforms': 7.26.0(@babel/core@7.24.5)
       '@babel/helpers': 7.27.0
-      '@babel/parser': 7.24.5
+      '@babel/parser': 7.27.0
       '@babel/template': 7.27.0
       '@babel/traverse': 7.27.0(supports-color@5.5.0)
       '@babel/types': 7.27.0
@@ -12905,6 +12928,8 @@ snapshots:
   '@babel/runtime@7.27.0':
     dependencies:
       regenerator-runtime: 0.14.1
+
+  '@babel/runtime@7.27.6': {}
 
   '@babel/template@7.27.0':
     dependencies:
@@ -15066,29 +15091,29 @@ snapshots:
       react-dom: 18.2.0(react@18.2.0)
       tinymce: 6.8.5
 
-  '@tiptap/core@2.1.13(@tiptap/pm@2.1.13)':
-    dependencies:
-      '@tiptap/pm': 2.1.13
-
   '@tiptap/core@2.1.13(@tiptap/pm@2.11.7)':
     dependencies:
       '@tiptap/pm': 2.11.7
+
+  '@tiptap/core@2.11.7(@tiptap/pm@2.1.13)':
+    dependencies:
+      '@tiptap/pm': 2.1.13
 
   '@tiptap/core@2.11.7(@tiptap/pm@2.11.7)':
     dependencies:
       '@tiptap/pm': 2.11.7
 
-  '@tiptap/extension-blockquote@2.11.7(@tiptap/core@2.1.13(@tiptap/pm@2.1.13))':
+  '@tiptap/extension-blockquote@2.11.7(@tiptap/core@2.11.7(@tiptap/pm@2.1.13))':
     dependencies:
-      '@tiptap/core': 2.1.13(@tiptap/pm@2.11.7)
+      '@tiptap/core': 2.11.7(@tiptap/pm@2.1.13)
 
   '@tiptap/extension-blockquote@2.11.7(@tiptap/core@2.11.7(@tiptap/pm@2.11.7))':
     dependencies:
       '@tiptap/core': 2.11.7(@tiptap/pm@2.11.7)
 
-  '@tiptap/extension-bold@2.11.7(@tiptap/core@2.1.13(@tiptap/pm@2.1.13))':
+  '@tiptap/extension-bold@2.11.7(@tiptap/core@2.11.7(@tiptap/pm@2.1.13))':
     dependencies:
-      '@tiptap/core': 2.1.13(@tiptap/pm@2.11.7)
+      '@tiptap/core': 2.11.7(@tiptap/pm@2.1.13)
 
   '@tiptap/extension-bold@2.11.7(@tiptap/core@2.11.7(@tiptap/pm@2.11.7))':
     dependencies:
@@ -15100,15 +15125,21 @@ snapshots:
       '@tiptap/pm': 2.1.13
       tippy.js: 6.3.7
 
+  '@tiptap/extension-bubble-menu@2.11.7(@tiptap/core@2.1.13(@tiptap/pm@2.1.13))(@tiptap/pm@2.1.13)':
+    dependencies:
+      '@tiptap/core': 2.1.13(@tiptap/pm@2.11.7)
+      '@tiptap/pm': 2.1.13
+      tippy.js: 6.3.7
+
   '@tiptap/extension-bubble-menu@2.11.7(@tiptap/core@2.1.13(@tiptap/pm@2.11.7))(@tiptap/pm@2.11.7)':
     dependencies:
       '@tiptap/core': 2.1.13(@tiptap/pm@2.11.7)
       '@tiptap/pm': 2.11.7
       tippy.js: 6.3.7
 
-  '@tiptap/extension-bullet-list@2.11.7(@tiptap/core@2.1.13(@tiptap/pm@2.1.13))':
+  '@tiptap/extension-bullet-list@2.11.7(@tiptap/core@2.11.7(@tiptap/pm@2.1.13))':
     dependencies:
-      '@tiptap/core': 2.1.13(@tiptap/pm@2.11.7)
+      '@tiptap/core': 2.11.7(@tiptap/pm@2.1.13)
 
   '@tiptap/extension-bullet-list@2.11.7(@tiptap/core@2.11.7(@tiptap/pm@2.11.7))':
     dependencies:
@@ -15119,9 +15150,9 @@ snapshots:
       '@tiptap/core': 2.1.13(@tiptap/pm@2.11.7)
       '@tiptap/pm': 2.1.13
 
-  '@tiptap/extension-code-block@2.11.7(@tiptap/core@2.1.13(@tiptap/pm@2.1.13))(@tiptap/pm@2.1.13)':
+  '@tiptap/extension-code-block@2.11.7(@tiptap/core@2.11.7(@tiptap/pm@2.1.13))(@tiptap/pm@2.1.13)':
     dependencies:
-      '@tiptap/core': 2.1.13(@tiptap/pm@2.11.7)
+      '@tiptap/core': 2.11.7(@tiptap/pm@2.1.13)
       '@tiptap/pm': 2.1.13
 
   '@tiptap/extension-code-block@2.11.7(@tiptap/core@2.11.7(@tiptap/pm@2.11.7))(@tiptap/pm@2.11.7)':
@@ -15133,6 +15164,10 @@ snapshots:
     dependencies:
       '@tiptap/core': 2.1.13(@tiptap/pm@2.11.7)
 
+  '@tiptap/extension-code@2.11.7(@tiptap/core@2.11.7(@tiptap/pm@2.1.13))':
+    dependencies:
+      '@tiptap/core': 2.11.7(@tiptap/pm@2.1.13)
+
   '@tiptap/extension-code@2.11.7(@tiptap/core@2.11.7(@tiptap/pm@2.11.7))':
     dependencies:
       '@tiptap/core': 2.11.7(@tiptap/pm@2.11.7)
@@ -15141,13 +15176,17 @@ snapshots:
     dependencies:
       '@tiptap/core': 2.1.13(@tiptap/pm@2.11.7)
 
+  '@tiptap/extension-document@2.11.7(@tiptap/core@2.11.7(@tiptap/pm@2.1.13))':
+    dependencies:
+      '@tiptap/core': 2.11.7(@tiptap/pm@2.1.13)
+
   '@tiptap/extension-document@2.11.7(@tiptap/core@2.11.7(@tiptap/pm@2.11.7))':
     dependencies:
       '@tiptap/core': 2.11.7(@tiptap/pm@2.11.7)
 
-  '@tiptap/extension-dropcursor@2.11.7(@tiptap/core@2.1.13(@tiptap/pm@2.1.13))(@tiptap/pm@2.1.13)':
+  '@tiptap/extension-dropcursor@2.11.7(@tiptap/core@2.11.7(@tiptap/pm@2.1.13))(@tiptap/pm@2.1.13)':
     dependencies:
-      '@tiptap/core': 2.1.13(@tiptap/pm@2.11.7)
+      '@tiptap/core': 2.11.7(@tiptap/pm@2.1.13)
       '@tiptap/pm': 2.1.13
 
   '@tiptap/extension-dropcursor@2.11.7(@tiptap/core@2.11.7(@tiptap/pm@2.11.7))(@tiptap/pm@2.11.7)':
@@ -15161,15 +15200,21 @@ snapshots:
       '@tiptap/pm': 2.1.13
       tippy.js: 6.3.7
 
+  '@tiptap/extension-floating-menu@2.11.7(@tiptap/core@2.1.13(@tiptap/pm@2.1.13))(@tiptap/pm@2.1.13)':
+    dependencies:
+      '@tiptap/core': 2.1.13(@tiptap/pm@2.11.7)
+      '@tiptap/pm': 2.1.13
+      tippy.js: 6.3.7
+
   '@tiptap/extension-floating-menu@2.11.7(@tiptap/core@2.1.13(@tiptap/pm@2.11.7))(@tiptap/pm@2.11.7)':
     dependencies:
       '@tiptap/core': 2.1.13(@tiptap/pm@2.11.7)
       '@tiptap/pm': 2.11.7
       tippy.js: 6.3.7
 
-  '@tiptap/extension-gapcursor@2.11.7(@tiptap/core@2.1.13(@tiptap/pm@2.1.13))(@tiptap/pm@2.1.13)':
+  '@tiptap/extension-gapcursor@2.11.7(@tiptap/core@2.11.7(@tiptap/pm@2.1.13))(@tiptap/pm@2.1.13)':
     dependencies:
-      '@tiptap/core': 2.1.13(@tiptap/pm@2.11.7)
+      '@tiptap/core': 2.11.7(@tiptap/pm@2.1.13)
       '@tiptap/pm': 2.1.13
 
   '@tiptap/extension-gapcursor@2.11.7(@tiptap/core@2.11.7(@tiptap/pm@2.11.7))(@tiptap/pm@2.11.7)':
@@ -15177,9 +15222,9 @@ snapshots:
       '@tiptap/core': 2.11.7(@tiptap/pm@2.11.7)
       '@tiptap/pm': 2.11.7
 
-  '@tiptap/extension-hard-break@2.11.7(@tiptap/core@2.1.13(@tiptap/pm@2.1.13))':
+  '@tiptap/extension-hard-break@2.11.7(@tiptap/core@2.11.7(@tiptap/pm@2.1.13))':
     dependencies:
-      '@tiptap/core': 2.1.13(@tiptap/pm@2.11.7)
+      '@tiptap/core': 2.11.7(@tiptap/pm@2.1.13)
 
   '@tiptap/extension-hard-break@2.11.7(@tiptap/core@2.11.7(@tiptap/pm@2.11.7))':
     dependencies:
@@ -15189,13 +15234,17 @@ snapshots:
     dependencies:
       '@tiptap/core': 2.1.13(@tiptap/pm@2.11.7)
 
+  '@tiptap/extension-heading@2.11.7(@tiptap/core@2.11.7(@tiptap/pm@2.1.13))':
+    dependencies:
+      '@tiptap/core': 2.11.7(@tiptap/pm@2.1.13)
+
   '@tiptap/extension-heading@2.11.7(@tiptap/core@2.11.7(@tiptap/pm@2.11.7))':
     dependencies:
       '@tiptap/core': 2.11.7(@tiptap/pm@2.11.7)
 
-  '@tiptap/extension-history@2.11.7(@tiptap/core@2.1.13(@tiptap/pm@2.1.13))(@tiptap/pm@2.1.13)':
+  '@tiptap/extension-history@2.11.7(@tiptap/core@2.11.7(@tiptap/pm@2.1.13))(@tiptap/pm@2.1.13)':
     dependencies:
-      '@tiptap/core': 2.1.13(@tiptap/pm@2.11.7)
+      '@tiptap/core': 2.11.7(@tiptap/pm@2.1.13)
       '@tiptap/pm': 2.1.13
 
   '@tiptap/extension-history@2.11.7(@tiptap/core@2.11.7(@tiptap/pm@2.11.7))(@tiptap/pm@2.11.7)':
@@ -15203,9 +15252,9 @@ snapshots:
       '@tiptap/core': 2.11.7(@tiptap/pm@2.11.7)
       '@tiptap/pm': 2.11.7
 
-  '@tiptap/extension-horizontal-rule@2.11.7(@tiptap/core@2.1.13(@tiptap/pm@2.1.13))(@tiptap/pm@2.1.13)':
+  '@tiptap/extension-horizontal-rule@2.11.7(@tiptap/core@2.11.7(@tiptap/pm@2.1.13))(@tiptap/pm@2.1.13)':
     dependencies:
-      '@tiptap/core': 2.1.13(@tiptap/pm@2.11.7)
+      '@tiptap/core': 2.11.7(@tiptap/pm@2.1.13)
       '@tiptap/pm': 2.1.13
 
   '@tiptap/extension-horizontal-rule@2.11.7(@tiptap/core@2.11.7(@tiptap/pm@2.11.7))(@tiptap/pm@2.11.7)':
@@ -15217,9 +15266,9 @@ snapshots:
     dependencies:
       '@tiptap/core': 2.1.13(@tiptap/pm@2.11.7)
 
-  '@tiptap/extension-italic@2.11.7(@tiptap/core@2.1.13(@tiptap/pm@2.1.13))':
+  '@tiptap/extension-italic@2.11.7(@tiptap/core@2.11.7(@tiptap/pm@2.1.13))':
     dependencies:
-      '@tiptap/core': 2.1.13(@tiptap/pm@2.11.7)
+      '@tiptap/core': 2.11.7(@tiptap/pm@2.1.13)
 
   '@tiptap/extension-italic@2.11.7(@tiptap/core@2.11.7(@tiptap/pm@2.11.7))':
     dependencies:
@@ -15231,25 +15280,25 @@ snapshots:
       '@tiptap/pm': 2.1.13
       linkifyjs: 4.2.0
 
-  '@tiptap/extension-list-item@2.11.7(@tiptap/core@2.1.13(@tiptap/pm@2.1.13))':
+  '@tiptap/extension-list-item@2.11.7(@tiptap/core@2.11.7(@tiptap/pm@2.1.13))':
     dependencies:
-      '@tiptap/core': 2.1.13(@tiptap/pm@2.11.7)
+      '@tiptap/core': 2.11.7(@tiptap/pm@2.1.13)
 
   '@tiptap/extension-list-item@2.11.7(@tiptap/core@2.11.7(@tiptap/pm@2.11.7))':
     dependencies:
       '@tiptap/core': 2.11.7(@tiptap/pm@2.11.7)
 
-  '@tiptap/extension-ordered-list@2.11.7(@tiptap/core@2.1.13(@tiptap/pm@2.1.13))':
+  '@tiptap/extension-ordered-list@2.11.7(@tiptap/core@2.11.7(@tiptap/pm@2.1.13))':
     dependencies:
-      '@tiptap/core': 2.1.13(@tiptap/pm@2.11.7)
+      '@tiptap/core': 2.11.7(@tiptap/pm@2.1.13)
 
   '@tiptap/extension-ordered-list@2.11.7(@tiptap/core@2.11.7(@tiptap/pm@2.11.7))':
     dependencies:
       '@tiptap/core': 2.11.7(@tiptap/pm@2.11.7)
 
-  '@tiptap/extension-paragraph@2.11.7(@tiptap/core@2.1.13(@tiptap/pm@2.1.13))':
+  '@tiptap/extension-paragraph@2.11.7(@tiptap/core@2.11.7(@tiptap/pm@2.1.13))':
     dependencies:
-      '@tiptap/core': 2.1.13(@tiptap/pm@2.11.7)
+      '@tiptap/core': 2.11.7(@tiptap/pm@2.1.13)
 
   '@tiptap/extension-paragraph@2.11.7(@tiptap/core@2.11.7(@tiptap/pm@2.11.7))':
     dependencies:
@@ -15260,9 +15309,9 @@ snapshots:
       '@tiptap/core': 2.1.13(@tiptap/pm@2.11.7)
       '@tiptap/pm': 2.11.7
 
-  '@tiptap/extension-strike@2.11.7(@tiptap/core@2.1.13(@tiptap/pm@2.1.13))':
+  '@tiptap/extension-strike@2.11.7(@tiptap/core@2.11.7(@tiptap/pm@2.1.13))':
     dependencies:
-      '@tiptap/core': 2.1.13(@tiptap/pm@2.11.7)
+      '@tiptap/core': 2.11.7(@tiptap/pm@2.1.13)
 
   '@tiptap/extension-strike@2.11.7(@tiptap/core@2.11.7(@tiptap/pm@2.11.7))':
     dependencies:
@@ -15300,6 +15349,10 @@ snapshots:
   '@tiptap/extension-text@2.1.13(@tiptap/core@2.1.13(@tiptap/pm@2.1.13))':
     dependencies:
       '@tiptap/core': 2.1.13(@tiptap/pm@2.11.7)
+
+  '@tiptap/extension-text@2.11.7(@tiptap/core@2.11.7(@tiptap/pm@2.1.13))':
+    dependencies:
+      '@tiptap/core': 2.11.7(@tiptap/pm@2.1.13)
 
   '@tiptap/extension-text@2.11.7(@tiptap/core@2.11.7(@tiptap/pm@2.11.7))':
     dependencies:
@@ -15354,8 +15407,8 @@ snapshots:
   '@tiptap/react@2.1.13(@tiptap/core@2.1.13(@tiptap/pm@2.1.13))(@tiptap/pm@2.1.13)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)':
     dependencies:
       '@tiptap/core': 2.1.13(@tiptap/pm@2.11.7)
-      '@tiptap/extension-bubble-menu': 2.1.13(@tiptap/core@2.1.13(@tiptap/pm@2.1.13))(@tiptap/pm@2.1.13)
-      '@tiptap/extension-floating-menu': 2.1.13(@tiptap/core@2.1.13(@tiptap/pm@2.1.13))(@tiptap/pm@2.1.13)
+      '@tiptap/extension-bubble-menu': 2.11.7(@tiptap/core@2.1.13(@tiptap/pm@2.1.13))(@tiptap/pm@2.1.13)
+      '@tiptap/extension-floating-menu': 2.11.7(@tiptap/core@2.1.13(@tiptap/pm@2.1.13))(@tiptap/pm@2.1.13)
       '@tiptap/pm': 2.1.13
       react: 18.2.0
       react-dom: 18.2.0(react@18.2.0)
@@ -15374,25 +15427,25 @@ snapshots:
 
   '@tiptap/starter-kit@2.1.13(@tiptap/pm@2.1.13)':
     dependencies:
-      '@tiptap/core': 2.1.13(@tiptap/pm@2.1.13)
-      '@tiptap/extension-blockquote': 2.11.7(@tiptap/core@2.1.13(@tiptap/pm@2.1.13))
-      '@tiptap/extension-bold': 2.11.7(@tiptap/core@2.1.13(@tiptap/pm@2.1.13))
-      '@tiptap/extension-bullet-list': 2.11.7(@tiptap/core@2.1.13(@tiptap/pm@2.1.13))
-      '@tiptap/extension-code': 2.1.13(@tiptap/core@2.1.13(@tiptap/pm@2.1.13))
-      '@tiptap/extension-code-block': 2.11.7(@tiptap/core@2.1.13(@tiptap/pm@2.1.13))(@tiptap/pm@2.1.13)
-      '@tiptap/extension-document': 2.1.13(@tiptap/core@2.1.13(@tiptap/pm@2.1.13))
-      '@tiptap/extension-dropcursor': 2.11.7(@tiptap/core@2.1.13(@tiptap/pm@2.1.13))(@tiptap/pm@2.1.13)
-      '@tiptap/extension-gapcursor': 2.11.7(@tiptap/core@2.1.13(@tiptap/pm@2.1.13))(@tiptap/pm@2.1.13)
-      '@tiptap/extension-hard-break': 2.11.7(@tiptap/core@2.1.13(@tiptap/pm@2.1.13))
-      '@tiptap/extension-heading': 2.1.13(@tiptap/core@2.1.13(@tiptap/pm@2.1.13))
-      '@tiptap/extension-history': 2.11.7(@tiptap/core@2.1.13(@tiptap/pm@2.1.13))(@tiptap/pm@2.1.13)
-      '@tiptap/extension-horizontal-rule': 2.11.7(@tiptap/core@2.1.13(@tiptap/pm@2.1.13))(@tiptap/pm@2.1.13)
-      '@tiptap/extension-italic': 2.11.7(@tiptap/core@2.1.13(@tiptap/pm@2.1.13))
-      '@tiptap/extension-list-item': 2.11.7(@tiptap/core@2.1.13(@tiptap/pm@2.1.13))
-      '@tiptap/extension-ordered-list': 2.11.7(@tiptap/core@2.1.13(@tiptap/pm@2.1.13))
-      '@tiptap/extension-paragraph': 2.11.7(@tiptap/core@2.1.13(@tiptap/pm@2.1.13))
-      '@tiptap/extension-strike': 2.11.7(@tiptap/core@2.1.13(@tiptap/pm@2.1.13))
-      '@tiptap/extension-text': 2.1.13(@tiptap/core@2.1.13(@tiptap/pm@2.1.13))
+      '@tiptap/core': 2.11.7(@tiptap/pm@2.1.13)
+      '@tiptap/extension-blockquote': 2.11.7(@tiptap/core@2.11.7(@tiptap/pm@2.1.13))
+      '@tiptap/extension-bold': 2.11.7(@tiptap/core@2.11.7(@tiptap/pm@2.1.13))
+      '@tiptap/extension-bullet-list': 2.11.7(@tiptap/core@2.11.7(@tiptap/pm@2.1.13))
+      '@tiptap/extension-code': 2.11.7(@tiptap/core@2.11.7(@tiptap/pm@2.1.13))
+      '@tiptap/extension-code-block': 2.11.7(@tiptap/core@2.11.7(@tiptap/pm@2.1.13))(@tiptap/pm@2.1.13)
+      '@tiptap/extension-document': 2.11.7(@tiptap/core@2.11.7(@tiptap/pm@2.1.13))
+      '@tiptap/extension-dropcursor': 2.11.7(@tiptap/core@2.11.7(@tiptap/pm@2.1.13))(@tiptap/pm@2.1.13)
+      '@tiptap/extension-gapcursor': 2.11.7(@tiptap/core@2.11.7(@tiptap/pm@2.1.13))(@tiptap/pm@2.1.13)
+      '@tiptap/extension-hard-break': 2.11.7(@tiptap/core@2.11.7(@tiptap/pm@2.1.13))
+      '@tiptap/extension-heading': 2.11.7(@tiptap/core@2.11.7(@tiptap/pm@2.1.13))
+      '@tiptap/extension-history': 2.11.7(@tiptap/core@2.11.7(@tiptap/pm@2.1.13))(@tiptap/pm@2.1.13)
+      '@tiptap/extension-horizontal-rule': 2.11.7(@tiptap/core@2.11.7(@tiptap/pm@2.1.13))(@tiptap/pm@2.1.13)
+      '@tiptap/extension-italic': 2.11.7(@tiptap/core@2.11.7(@tiptap/pm@2.1.13))
+      '@tiptap/extension-list-item': 2.11.7(@tiptap/core@2.11.7(@tiptap/pm@2.1.13))
+      '@tiptap/extension-ordered-list': 2.11.7(@tiptap/core@2.11.7(@tiptap/pm@2.1.13))
+      '@tiptap/extension-paragraph': 2.11.7(@tiptap/core@2.11.7(@tiptap/pm@2.1.13))
+      '@tiptap/extension-strike': 2.11.7(@tiptap/core@2.11.7(@tiptap/pm@2.1.13))
+      '@tiptap/extension-text': 2.11.7(@tiptap/core@2.11.7(@tiptap/pm@2.1.13))
     transitivePeerDependencies:
       - '@tiptap/pm'
 
@@ -15476,7 +15529,7 @@ snapshots:
   '@types/body-parser@1.19.5':
     dependencies:
       '@types/connect': 3.4.38
-      '@types/node': 16.18.126
+      '@types/node': 18.19.86
 
   '@types/bonjour@3.5.13':
     dependencies:
@@ -15489,7 +15542,7 @@ snapshots:
 
   '@types/connect@3.4.38':
     dependencies:
-      '@types/node': 16.18.126
+      '@types/node': 18.19.86
 
   '@types/cookie-parser@1.4.8(@types/express@4.17.21)':
     dependencies:
@@ -15497,7 +15550,7 @@ snapshots:
 
   '@types/cors@2.8.17':
     dependencies:
-      '@types/node': 16.18.126
+      '@types/node': 18.19.86
 
   '@types/debug@4.1.12':
     dependencies:
@@ -15532,12 +15585,12 @@ snapshots:
 
   '@types/express-formidable@1.2.3':
     dependencies:
-      '@types/express': 4.17.21
+      '@types/express': 5.0.1
       '@types/formidable': 3.4.5
 
   '@types/express-serve-static-core@4.19.6':
     dependencies:
-      '@types/node': 16.18.126
+      '@types/node': 18.19.86
       '@types/qs': 6.9.18
       '@types/range-parser': 1.2.7
       '@types/send': 0.17.4
@@ -15570,7 +15623,7 @@ snapshots:
 
   '@types/formidable@3.4.5':
     dependencies:
-      '@types/node': 16.18.126
+      '@types/node': 18.19.86
 
   '@types/get-urls@9.1.3':
     dependencies:
@@ -15607,11 +15660,13 @@ snapshots:
 
   '@types/i18next-browser-languagedetector@3.0.0':
     dependencies:
-      i18next-browser-languagedetector: 7.2.2
+      i18next-browser-languagedetector: 8.2.0
 
-  '@types/i18next@13.0.0':
+  '@types/i18next@13.0.0(typescript@5.8.3)':
     dependencies:
-      i18next: 23.16.8
+      i18next: 25.3.2(typescript@5.8.3)
+    transitivePeerDependencies:
+      - typescript
 
   '@types/istanbul-lib-coverage@2.0.6': {}
 
@@ -15788,12 +15843,12 @@ snapshots:
 
   '@types/serve-index@1.9.4':
     dependencies:
-      '@types/express': 4.17.21
+      '@types/express': 5.0.1
 
   '@types/serve-static@1.15.7':
     dependencies:
       '@types/http-errors': 2.0.4
-      '@types/node': 16.18.126
+      '@types/node': 18.19.86
       '@types/send': 0.17.4
 
   '@types/sockjs@0.3.36':
@@ -15826,7 +15881,7 @@ snapshots:
 
   '@types/xml2js@0.4.14':
     dependencies:
-      '@types/node': 16.18.126
+      '@types/node': 18.19.86
 
   '@types/yargs-parser@21.0.3': {}
 
@@ -16669,7 +16724,7 @@ snapshots:
     dependencies:
       ansi-align: 3.0.1
       camelcase: 7.0.1
-      chalk: 5.0.1
+      chalk: 5.4.1
       cli-boxes: 3.0.0
       string-width: 5.1.2
       type-fest: 2.19.0
@@ -17781,6 +17836,12 @@ snapshots:
     dependencies:
       ansi-colors: 4.1.3
 
+  enquirer@2.4.1:
+    dependencies:
+      ansi-colors: 4.1.3
+      strip-ansi: 6.0.1
+    optional: true
+
   entities@2.2.0: {}
 
   entities@4.5.0: {}
@@ -18119,10 +18180,10 @@ snapshots:
 
   eslint-config-react@1.1.7: {}
 
-  eslint-config-turbo@2.5.2(eslint@8.57.1)(turbo@2.5.0):
+  eslint-config-turbo@2.5.4(eslint@8.57.1)(turbo@2.5.0):
     dependencies:
       eslint: 8.57.1
-      eslint-plugin-turbo: 2.5.2(eslint@8.57.1)(turbo@2.5.0)
+      eslint-plugin-turbo: 2.5.4(eslint@8.57.1)(turbo@2.5.0)
       turbo: 2.5.0
 
   eslint-import-resolver-node@0.3.9:
@@ -18191,7 +18252,7 @@ snapshots:
       - supports-color
       - typescript
 
-  eslint-plugin-jest@28.11.0(@typescript-eslint/eslint-plugin@5.62.0(@typescript-eslint/parser@5.62.0(eslint@8.57.1)(typescript@5.8.3))(eslint@8.57.1)(typescript@5.8.3))(eslint@8.57.1)(jest@27.5.1(ts-node@10.9.2(@types/node@20.5.1)(typescript@5.8.3)))(typescript@5.8.3):
+  eslint-plugin-jest@29.0.1(@typescript-eslint/eslint-plugin@5.62.0(@typescript-eslint/parser@5.62.0(eslint@8.57.1)(typescript@5.8.3))(eslint@8.57.1)(typescript@5.8.3))(eslint@8.57.1)(jest@27.5.1(ts-node@10.9.2(@types/node@20.5.1)(typescript@5.8.3)))(typescript@5.8.3):
     dependencies:
       '@typescript-eslint/utils': 8.30.1(eslint@8.57.1)(typescript@5.8.3)
       eslint: 8.57.1
@@ -18269,7 +18330,7 @@ snapshots:
       - supports-color
       - typescript
 
-  eslint-plugin-turbo@2.5.2(eslint@8.57.1)(turbo@2.5.0):
+  eslint-plugin-turbo@2.5.4(eslint@8.57.1)(turbo@2.5.0):
     dependencies:
       dotenv: 16.0.3
       eslint: 8.57.1
@@ -19196,6 +19257,10 @@ snapshots:
     dependencies:
       '@babel/runtime': 7.27.0
 
+  i18next-browser-languagedetector@8.2.0:
+    dependencies:
+      '@babel/runtime': 7.27.0
+
   i18next-http-backend@2.7.3(encoding@0.1.13):
     dependencies:
       cross-fetch: 4.0.0(encoding@0.1.13)
@@ -19206,9 +19271,11 @@ snapshots:
     dependencies:
       '@babel/runtime': 7.27.0
 
-  i18next@23.16.8:
+  i18next@25.3.2(typescript@5.8.3):
     dependencies:
-      '@babel/runtime': 7.27.0
+      '@babel/runtime': 7.27.6
+    optionalDependencies:
+      typescript: 5.8.3
 
   iconv-lite@0.4.24:
     dependencies:
@@ -20314,14 +20381,14 @@ snapshots:
 
   linkifyjs@4.2.0: {}
 
-  lint-staged@14.0.1(enquirer@2.3.6):
+  lint-staged@14.0.1(enquirer@2.4.1):
     dependencies:
       chalk: 5.3.0
       commander: 11.0.0
       debug: 4.3.4
       execa: 7.2.0
       lilconfig: 2.1.0
-      listr2: 6.6.1(enquirer@2.3.6)
+      listr2: 6.6.1(enquirer@2.4.1)
       micromatch: 4.0.5
       pidtree: 0.6.0
       string-argv: 0.3.2
@@ -20330,7 +20397,7 @@ snapshots:
       - enquirer
       - supports-color
 
-  listr2@6.6.1(enquirer@2.3.6):
+  listr2@6.6.1(enquirer@2.4.1):
     dependencies:
       cli-truncate: 3.1.0
       colorette: 2.0.20
@@ -20339,7 +20406,7 @@ snapshots:
       rfdc: 1.4.1
       wrap-ansi: 8.1.0
     optionalDependencies:
-      enquirer: 2.3.6
+      enquirer: 2.4.1
 
   load-script@1.0.0: {}
 
@@ -22526,14 +22593,15 @@ snapshots:
     optionalDependencies:
       react-dom: 18.2.0(react@18.2.0)
 
-  react-i18next@13.5.0(i18next@23.16.8)(react-dom@18.2.0(react@18.2.0))(react@18.2.0):
+  react-i18next@15.6.0(i18next@25.3.2(typescript@5.8.3))(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(typescript@5.8.3):
     dependencies:
-      '@babel/runtime': 7.27.0
+      '@babel/runtime': 7.27.6
       html-parse-stringify: 3.0.1
-      i18next: 23.16.8
+      i18next: 25.3.2(typescript@5.8.3)
       react: 18.2.0
     optionalDependencies:
       react-dom: 18.2.0(react@18.2.0)
+      typescript: 5.8.3
 
   react-is@16.13.1: {}
 

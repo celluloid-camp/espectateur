@@ -13,9 +13,10 @@ import {
 	Tooltip,
 } from "@mui/material";
 import { grey } from "@mui/material/colors";
-import { useFormik } from "formik";
+import { useForm, Controller } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { z, type ZodType } from "zod";
 import { Trans, useTranslation } from "react-i18next";
-import * as Yup from "yup";
 
 import { useVideoPlayerProgressValue } from "~components/project/useVideoPlayer";
 import { type ProjectById, trpc, type UserMe } from "~utils/trpc";
@@ -70,6 +71,22 @@ export const AnnotationForm: React.FC<AnnotationFormProps> = (props) => {
 	return <AnnotationFormContent onClose={handleClose} {...props} />;
 };
 
+const annotationSchema = z
+	.object({
+		startTime: z.number(),
+		stopTime: z.number(),
+		pause: z.boolean(),
+		text: z.string(),
+		emotion: z.string().optional(),
+		concept: z.string().optional(),
+	})
+	.refine((data) => data.text.trim() !== "" || data.emotion !== undefined, {
+		message: "Either text or emotion must be provided.",
+		path: ["text", "emotion"],
+	});
+
+type AnnotationFormValues = z.infer<typeof annotationSchema>;
+
 export const AnnotationFormContent: React.FC<
 	AnnotationFormProps & { onClose: () => void }
 > = ({ duration, project, onClose }) => {
@@ -91,78 +108,77 @@ export const AnnotationFormContent: React.FC<
 
 	const { autoDetection, autoDetectionMode } = useAutoDetectionMode();
 
-	const validationSchema = Yup.object().shape({
-		startTime: Yup.number(),
-		stopTime: Yup.number(),
-		pause: Yup.boolean(),
-		text: Yup.string()
-			.min(2, "Comment doit comporter minimum 5 character")
-			.required("Commentaire est obligatoire"),
-		emotion: Yup.string(),
-		concept: Yup.string(),
-	});
-
-	const formik = useFormik({
-		initialValues: editedAnnotation
-			? {
-					startTime: editedAnnotation.startTime,
-					stopTime: editedAnnotation.stopTime,
-					pause: editedAnnotation.pause,
-					text: editedAnnotation.text,
-					emotion: editedAnnotation.emotion,
-				}
-			: {
-					startTime: videoProgress,
-					stopTime: videoProgress + 600, // 10 minutes
-					pause: true,
-					text: "",
-					emotion: "",
-					concept: "",
-				},
-		validateOnMount: false,
-		validationSchema: validationSchema,
-		validateOnBlur: true,
-		validateOnChange: true,
-		onSubmit: async (values) => {
-			if (editedAnnotation) {
-				const changedAnnotation = await editMutation.mutateAsync({
-					annotationId: editedAnnotation.id,
-					projectId: project.id,
-					text: values.text,
-					startTime: values.startTime,
-					stopTime: values.stopTime,
-					pause: values.pause,
-					extra: contextualEditorPosition ? contextualEditorPosition : {},
-				});
-				if (changedAnnotation) {
-					formik.resetForm();
-					setContextualEditorPosition(undefined);
-					setEditedAnnotation(undefined);
-					handleClose();
-				}
-			} else {
-				const newAnnotation = await addMutation.mutateAsync({
-					projectId: project.id,
-					text: values.text,
-					startTime: values.startTime,
-					stopTime: values.stopTime,
-					pause: values.pause,
-					emotion: values.emotion ?? undefined,
-					mode: playerMode,
-					detection: autoDetection ? autoDetectionMode : undefined,
-					concept: values.concept,
-					extra: contextualEditorPosition ? contextualEditorPosition : {},
-				});
-				if (newAnnotation) {
-					formik.resetForm();
-					setContextualEditorPosition(undefined);
-					handleClose();
-				}
+	const defaultValues: AnnotationFormValues = editedAnnotation
+		? {
+				startTime: editedAnnotation.startTime,
+				stopTime: editedAnnotation.stopTime,
+				pause: editedAnnotation.pause,
+				text: editedAnnotation.text,
+				emotion: editedAnnotation.emotion ?? "",
+				concept: editedAnnotation.concept ?? "",
 			}
+		: {
+				startTime: videoProgress,
+				stopTime: videoProgress + 600, // 10 minutes
+				pause: true,
+				text: "",
+				emotion: undefined,
+				concept: undefined,
+			};
 
-			utils.annotation.byProjectId.invalidate({ id: project.id });
-		},
+	const {
+		control,
+		handleSubmit,
+		setValue,
+		formState: { errors, isSubmitting, isValid },
+		reset,
+		watch,
+	} = useForm<AnnotationFormValues>({
+		resolver: zodResolver(annotationSchema),
+		defaultValues,
+		mode: "onChange",
 	});
+
+	const values = watch();
+
+	const onSubmit = async (values: AnnotationFormValues) => {
+		if (editedAnnotation) {
+			const changedAnnotation = await editMutation.mutateAsync({
+				annotationId: editedAnnotation.id,
+				projectId: project.id,
+				text: values.text,
+				startTime: values.startTime,
+				stopTime: values.stopTime,
+				pause: values.pause,
+				extra: contextualEditorPosition ? contextualEditorPosition : {},
+			});
+			if (changedAnnotation) {
+				reset();
+				setContextualEditorPosition(undefined);
+				setEditedAnnotation(undefined);
+				handleClose();
+			}
+		} else {
+			const newAnnotation = await addMutation.mutateAsync({
+				projectId: project.id,
+				text: values.text || "",
+				startTime: values.startTime,
+				stopTime: values.stopTime,
+				pause: values.pause,
+				emotion: values.emotion,
+				mode: playerMode,
+				detection: autoDetection ? autoDetectionMode : undefined,
+				concept: values.concept,
+				extra: contextualEditorPosition ? contextualEditorPosition : {},
+			});
+			if (newAnnotation) {
+				reset();
+				setContextualEditorPosition(undefined);
+				handleClose();
+			}
+		}
+		utils.annotation.byProjectId.invalidate({ id: project.id });
+	};
 
 	const handleClickAway = () => {};
 
@@ -175,18 +191,24 @@ export const AnnotationFormContent: React.FC<
 		<ClickAwayListener onClickAway={handleClickAway}>
 			<Box
 				component="form"
-				onSubmit={formik.handleSubmit}
+				onSubmit={handleSubmit(onSubmit)}
 				sx={{ flexShrink: 0, pt: 5, paddingX: 2 }}
 			>
 				<Box sx={{ paddingX: 2 }}>
-					<DurationSlider
-						duration={duration}
-						startTime={formik.values.startTime}
-						stopTime={formik.values.stopTime}
-						onChange={(start, stop) => {
-							formik.setFieldValue("startTime", start);
-							formik.setFieldValue("stopTime", stop);
-						}}
+					<Controller
+						name="startTime"
+						control={control}
+						render={({ field }) => (
+							<DurationSlider
+								duration={duration}
+								startTime={field.value}
+								stopTime={values.stopTime}
+								onChange={(start, stop) => {
+									setValue("startTime", start);
+									setValue("stopTime", stop);
+								}}
+							/>
+						)}
 					/>
 				</Box>
 				<Box
@@ -198,34 +220,40 @@ export const AnnotationFormContent: React.FC<
 						borderRadius: 1,
 					}}
 				>
-					<InputBase
-						id="text"
+					<Controller
 						name="text"
-						sx={{ ml: 1, flex: 1, color: "white" }}
-						placeholder="Saissez votre annotation"
-						multiline
-						maxRows={5}
-						minRows={2}
-						value={formik.values.text}
-						onChange={formik.handleChange}
-						onBlur={formik.handleBlur}
-						error={!!formik.errors.text}
-						disabled={formik.isSubmitting}
-						inputProps={{
-							"aria-label": "Saissez votre annotation",
-							maxLength: 250,
-						}}
+						control={control}
+						render={({ field }) => (
+							<InputBase
+								{...field}
+								id="text"
+								name="text"
+								sx={{ ml: 1, flex: 1, color: "white" }}
+								placeholder="Saissez votre annotation"
+								multiline
+								maxRows={5}
+								minRows={2}
+								error={!!errors.text}
+								disabled={isSubmitting}
+								inputProps={{
+									"aria-label": "Saissez votre annotation",
+									maxLength: 250,
+								}}
+							/>
+						)}
 					/>
 				</Box>
 
 				<EmotionsPalette
-					emotion={formik.values.emotion}
+					emotion={values.emotion || ""}
 					projectId={project.id}
 					semiAutoAnnotation={false}
 					semiAutoAnnotationMe={false}
 					position={videoProgress}
 					onEmotionChange={(emotion) => {
-						formik.setFieldValue("emotion", emotion);
+						setValue("emotion", emotion, {
+							shouldValidate: true,
+						});
 					}}
 				/>
 
@@ -262,35 +290,42 @@ export const AnnotationFormContent: React.FC<
 						</Tooltip>
 
 						<Tooltip title={"Pause automatique à l'ouverture"} arrow>
-							<FormControlLabel
-								sx={{ color: "white" }}
-								slotProps={{
-									typography: {
-										fontSize: {
-											xs: "8px",
-											sm: "12px",
-										},
-									},
-								}}
-								label="Pause"
-								control={
-									<Checkbox
-										size="small"
-										color="secondary"
-										id="pause"
-										name="pause"
-										checked={formik.values.pause}
-										onChange={formik.handleChange}
-										icon={<PauseCircleOutlineOutlinedIcon />}
-										checkedIcon={<PauseCircleIcon />}
+							<Controller
+								name="pause"
+								control={control}
+								render={({ field }) => (
+									<FormControlLabel
+										sx={{ color: "white" }}
+										slotProps={{
+											typography: {
+												fontSize: {
+													xs: "8px",
+													sm: "12px",
+												},
+											},
+										}}
+										label="Pause"
+										control={
+											<Checkbox
+												size="small"
+												color="secondary"
+												id="pause"
+												checked={field.value}
+												onChange={(e) => field.onChange(e.target.checked)}
+												icon={<PauseCircleOutlineOutlinedIcon />}
+												checkedIcon={<PauseCircleIcon />}
+											/>
+										}
 									/>
-								}
+								)}
 							/>
 						</Tooltip>
 					</Box>
 					<ConceptSelector
 						onChange={(concept) => {
-							formik.setFieldValue("concept", concept);
+							setValue("concept", concept, {
+								shouldValidate: true,
+							});
 						}}
 					/>
 					<Box sx={{ marginY: 1 }} flexDirection={"row"}>
@@ -306,7 +341,7 @@ export const AnnotationFormContent: React.FC<
 						<Button
 							size="small"
 							variant="contained"
-							disabled={!formik.isValid || formik.isSubmitting}
+							disabled={!isValid || isSubmitting}
 							disableElevation
 							sx={{
 								borderRadius: 10,
@@ -315,7 +350,7 @@ export const AnnotationFormContent: React.FC<
 									backgroundColor: grey[700],
 								},
 							}}
-							onClick={() => formik.handleSubmit()}
+							type="submit"
 						>
 							{editedAnnotation ? (
 								<Trans i18nKey="annotation.edit.send">Modifier</Trans>

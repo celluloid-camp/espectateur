@@ -11,6 +11,7 @@ import {
 import React, { Suspense, useEffect, useMemo, useRef, useState } from "react";
 import { ErrorBoundary } from "react-error-boundary";
 import { useParams } from "react-router-dom";
+import { usePlayerModeStore } from "~/components/emotion-detection/store";
 
 import { DubinPanel } from "~/components/project/dubin-panel";
 import { ProjectNotes } from "~/components/project/ProjectNotes";
@@ -43,7 +44,7 @@ const ProjectMainGrid: React.FC<Props> = ({ project, user }) => {
 
 	const containerRef = useRef<HTMLDivElement>(null);
 	const [containerHeight, setContainerHeight] = useState<number>();
-
+	const { mode } = usePlayerModeStore();
 	const [annotations] = trpc.annotation.byProjectId.useSuspenseQuery({
 		id: project.id,
 	});
@@ -89,11 +90,11 @@ const ProjectMainGrid: React.FC<Props> = ({ project, user }) => {
 				annotation.pause && annotation.startTime === Math.floor(videoProgress),
 		);
 
-		if (paused.length > 0 && position) {
+		if (paused.length > 0 && position && mode !== "performance") {
 			videoPlayerRef.current?.getInternalPlayer().pause();
 			videoPlayerRef.current?.seekTo(position + 1, "seconds");
 		}
-	}, [visibleAnnotations, videoPlayerRef, videoProgress]);
+	}, [visibleAnnotations, videoPlayerRef, videoProgress, mode]);
 
 	const updateContainerHeight = () => {
 		if (containerRef.current) {
@@ -122,6 +123,7 @@ const ProjectMainGrid: React.FC<Props> = ({ project, user }) => {
 			}
 		};
 	}, []);
+
 
 	useEffect(() => {
 		if (formVisible && videoPlayerRef) {

@@ -2,15 +2,18 @@ import type ReactPlayer from "@celluloid/react-player";
 import {
 	Box,
 	CircularProgress,
+	colors,
 	Container,
 	Grid,
 	Paper,
 	Skeleton,
+	Tooltip,
 	Typography,
 } from "@mui/material";
 import React, { Suspense, useEffect, useMemo, useRef, useState } from "react";
 import { ErrorBoundary } from "react-error-boundary";
 import { useParams } from "react-router-dom";
+import { usePlayerModeStore } from "~/components/emotion-detection/store";
 
 import { DubinPanel } from "~/components/project/dubin-panel";
 import { ProjectNotes } from "~/components/project/ProjectNotes";
@@ -28,6 +31,7 @@ import { VideoPlayer } from "~components/project/VideoPlayer";
 import { useVideoPlayerEvent } from "~hooks/use-video-player";
 import type { ProjectById, UserMe } from "~utils/trpc";
 import { type AnnotationByProjectId, trpc } from "~utils/trpc";
+import { useTranslation } from "react-i18next";
 
 interface Props {
 	project: ProjectById;
@@ -41,9 +45,10 @@ const ProjectMainGrid: React.FC<Props> = ({ project, user }) => {
 	const videoProgress = useVideoPlayerProgressValue();
 	const [playerIsReady, setPlayerIsReady] = React.useState(false);
 
+  const { t } = useTranslation();
 	const containerRef = useRef<HTMLDivElement>(null);
 	const [containerHeight, setContainerHeight] = useState<number>();
-
+	const { mode } = usePlayerModeStore();
 	const [annotations] = trpc.annotation.byProjectId.useSuspenseQuery({
 		id: project.id,
 	});
@@ -89,11 +94,11 @@ const ProjectMainGrid: React.FC<Props> = ({ project, user }) => {
 				annotation.pause && annotation.startTime === Math.floor(videoProgress),
 		);
 
-		if (paused.length > 0 && position) {
+		if (paused.length > 0 && position && mode !== "performance") {
 			videoPlayerRef.current?.getInternalPlayer().pause();
 			videoPlayerRef.current?.seekTo(position + 1, "seconds");
 		}
-	}, [visibleAnnotations, videoPlayerRef, videoProgress]);
+	}, [visibleAnnotations, videoPlayerRef, videoProgress, mode]);
 
 	const updateContainerHeight = () => {
 		if (containerRef.current) {
@@ -122,6 +127,7 @@ const ProjectMainGrid: React.FC<Props> = ({ project, user }) => {
 			}
 		};
 	}, []);
+
 
 	useEffect(() => {
 		if (formVisible && videoPlayerRef) {
@@ -157,6 +163,13 @@ const ProjectMainGrid: React.FC<Props> = ({ project, user }) => {
 						onClick={handleAnnotionHintClick}
 					/>
 				) : null}
+				{mode === "performance" && (
+					<Tooltip title={t("project.video.performance.mode.hint")} placement="right">
+						<Box sx={{ position: "absolute", left: 0, bottom: 10, backgroundColor: colors.red[500], px:1, borderRadius: 1 }}>
+							<Typography variant="caption" sx={{ color: "white", lineHeight: 2, cursor: "default", userSelect: "none" }}>Performance</Typography>
+						</Box>
+					</Tooltip>
+				)}
 				<VideoPlayer
 					ref={videoPlayerRef}
 					height={containerHeight}

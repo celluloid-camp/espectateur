@@ -289,5 +289,6 @@
   "metadata.dublin.menu.export": "Exportar",
   "metadata.dublin.menu.import": "Importar",
   "annotation.select-concept": "Selecciona un concepto",
-  "annotation.concept.label": "Concepto"
+  "annotation.concept.label": "Concepto",
+  "project.video.performance.mode.hint": "Desactivar el modo Rendimiento para poder controlar el vídeo"
 }

@@ -2,10 +2,12 @@ import type ReactPlayer from "@celluloid/react-player";
 import {
 	Box,
 	CircularProgress,
+	colors,
 	Container,
 	Grid,
 	Paper,
 	Skeleton,
+	Tooltip,
 	Typography,
 } from "@mui/material";
 import React, { Suspense, useEffect, useMemo, useRef, useState } from "react";
@@ -29,6 +31,7 @@ import { VideoPlayer } from "~components/project/VideoPlayer";
 import { useVideoPlayerEvent } from "~hooks/use-video-player";
 import type { ProjectById, UserMe } from "~utils/trpc";
 import { type AnnotationByProjectId, trpc } from "~utils/trpc";
+import { useTranslation } from "react-i18next";
 
 interface Props {
 	project: ProjectById;
@@ -42,6 +45,7 @@ const ProjectMainGrid: React.FC<Props> = ({ project, user }) => {
 	const videoProgress = useVideoPlayerProgressValue();
 	const [playerIsReady, setPlayerIsReady] = React.useState(false);
 
+  const { t } = useTranslation();
 	const containerRef = useRef<HTMLDivElement>(null);
 	const [containerHeight, setContainerHeight] = useState<number>();
 	const { mode } = usePlayerModeStore();
@@ -159,6 +163,13 @@ const ProjectMainGrid: React.FC<Props> = ({ project, user }) => {
 						onClick={handleAnnotionHintClick}
 					/>
 				) : null}
+				{mode === "performance" && (
+					<Tooltip title={t("project.video.performance.mode.hint")} placement="right">
+						<Box sx={{ position: "absolute", left: 0, bottom: 10, backgroundColor: colors.red[500], px:1, borderRadius: 1 }}>
+							<Typography variant="caption" sx={{ color: "white", lineHeight: 2, cursor: "default", userSelect: "none" }}>Performance</Typography>
+						</Box>
+					</Tooltip>
+				)}
 				<VideoPlayer
 					ref={videoPlayerRef}
 					height={containerHeight}

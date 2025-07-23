@@ -289,5 +289,6 @@
   "metadata.dublin.menu.export": "Ekspor",
   "metadata.dublin.menu.import": "Impor",
   "annotation.select-concept": "Pilih konsep",
-  "annotation.concept.label": "Konsep"
+  "annotation.concept.label": "Konsep",
+  "project.video.performance.mode.hint": "Nonaktifkan Mode Performa untuk dapat mengontrol video"
 }

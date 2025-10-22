@@ -100,6 +100,12 @@ const ProjectMainGrid: React.FC<Props> = ({ project, user }) => {
 		}
 	}, [visibleAnnotations, videoPlayerRef, videoProgress, mode]);
 
+	useEffect(() => {
+		if (mode === "performance") {
+			videoPlayerRef.current?.getInternalPlayer().play();
+		}
+	}, [mode]);
+
 	const updateContainerHeight = () => {
 		if (containerRef.current) {
 			const containerHeight = containerRef.current.offsetHeight;

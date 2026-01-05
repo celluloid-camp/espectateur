@@ -44,7 +44,7 @@ const ProjectMainGrid: React.FC<Props> = ({ project, user }) => {
 	const videoProgress = useVideoPlayerProgressValue();
 	const [playerIsReady, setPlayerIsReady] = React.useState(false);
 
-  const { t } = useTranslation();
+	const { t } = useTranslation();
 	const containerRef = useRef<HTMLDivElement>(null);
 	const [containerHeight, setContainerHeight] = useState<number>();
 	const { mode } = usePlayerModeStore();
@@ -107,6 +107,12 @@ const ProjectMainGrid: React.FC<Props> = ({ project, user }) => {
 	};
 
 	useEffect(() => {
+		if (mode === "performance") {
+			videoPlayerRef.current?.getInternalPlayer().play();
+		}
+	}, [mode]);
+
+	useEffect(() => {
 		// Initial calculation
 		updateContainerHeight();
 
@@ -127,12 +133,11 @@ const ProjectMainGrid: React.FC<Props> = ({ project, user }) => {
 		};
 	}, []);
 
-
 	useEffect(() => {
-		if (formVisible && videoPlayerRef) {
+		if (formVisible && videoPlayerRef && mode !== "performance") {
 			videoPlayerRef.current?.getInternalPlayer().pause();
 		}
-	}, [formVisible, videoPlayerRef]);
+	}, [formVisible, videoPlayerRef, mode]);
 
 	const handleAnnotionHintClick = (annotation: AnnotationByProjectId) => {
 		videoPlayerRef.current?.seekTo(annotation.startTime, "seconds");
@@ -163,9 +168,31 @@ const ProjectMainGrid: React.FC<Props> = ({ project, user }) => {
 					/>
 				) : null}
 				{mode === "performance" && (
-					<Tooltip title={t("project.video.performance.mode.hint")} placement="right">
-						<Box sx={{ position: "absolute", left: 0, bottom: 10, backgroundColor: colors.red[500], px:1, borderRadius: 1 }}>
-							<Typography variant="caption" sx={{ color: "white", lineHeight: 2, cursor: "default", userSelect: "none" }}>Performance</Typography>
+					<Tooltip
+						title={t("project.video.performance.mode.hint")}
+						placement="right"
+					>
+						<Box
+							sx={{
+								position: "absolute",
+								left: 0,
+								bottom: 10,
+								backgroundColor: colors.red[500],
+								px: 1,
+								borderRadius: 1,
+							}}
+						>
+							<Typography
+								variant="caption"
+								sx={{
+									color: "white",
+									lineHeight: 2,
+									cursor: "default",
+									userSelect: "none",
+								}}
+							>
+								Performance
+							</Typography>
 						</Box>
 					</Tooltip>
 				)}
@@ -299,7 +326,7 @@ const ProjectPage: React.FC = () => {
 	const { projectId } = useParams();
 	const { data: user } = trpc.user.me.useQuery();
 	const { data: project } = trpc.project.byId.useQuery(
-		{ id: projectId },
+		{ id: projectId ?? "" },
 		{
 			enabled: !!projectId,
 		},

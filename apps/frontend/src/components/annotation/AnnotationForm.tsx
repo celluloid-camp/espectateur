@@ -1,3 +1,4 @@
+import { zodResolver } from "@hookform/resolvers/zod";
 import CenterFocusStrongIcon from "@mui/icons-material/CenterFocusStrong";
 import CenterFocusStrongOutlinedIcon from "@mui/icons-material/CenterFocusStrongOutlined";
 import PauseCircleIcon from "@mui/icons-material/PauseCircle";
@@ -13,14 +14,17 @@ import {
 	Tooltip,
 } from "@mui/material";
 import { grey } from "@mui/material/colors";
-import { useForm, Controller } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { z, type ZodType } from "zod";
+import { Controller, useForm } from "react-hook-form";
 import { Trans, useTranslation } from "react-i18next";
+import { type ZodType, z } from "zod";
 
 import { useVideoPlayerProgressValue } from "~components/project/useVideoPlayer";
 import { type ProjectById, trpc, type UserMe } from "~utils/trpc";
-
+import { EmotionsPalette } from "../emotion-detection/emotion-palette";
+import {
+	useAutoDetectionMode,
+	usePlayerModeStore,
+} from "../emotion-detection/store";
 import { ConceptSelector } from "./concept-selector";
 import { DurationSlider } from "./DurationSlider";
 import {
@@ -30,11 +34,6 @@ import {
 	useEditAnnotation,
 	useEmotionEditor,
 } from "./useAnnotationEditor";
-import { EmotionsPalette } from "../emotion-detection/emotion-palette";
-import {
-	useAutoDetectionMode,
-	usePlayerModeStore,
-} from "../emotion-detection/store";
 
 type AnnotationFormProps = {
 	duration: number;
@@ -180,7 +179,9 @@ export const AnnotationFormContent: React.FC<
 		utils.annotation.byProjectId.invalidate({ id: project.id });
 	};
 
-	const handleClickAway = () => {};
+	const handleClickAway = () => {
+		// handleClose();
+	};
 
 	const handleClose = () => {
 		setContextualEditorVisible(false);
@@ -192,9 +193,9 @@ export const AnnotationFormContent: React.FC<
 			<Box
 				component="form"
 				onSubmit={handleSubmit(onSubmit)}
-				sx={{ flexShrink: 0, pt: 5, paddingX: 2 }}
+				sx={{ flexShrink: 0, py: 5, paddingX: 2 }}
 			>
-				<Box sx={{ paddingX: 2 }}>
+				<Box>
 					<Controller
 						name="startTime"
 						control={control}
@@ -215,9 +216,10 @@ export const AnnotationFormContent: React.FC<
 					sx={{
 						p: "2px 4px",
 						display: "flex",
-						alignItems: "center",
+						alignItems: "flex-end",
 						backgroundColor: grey[800],
 						borderRadius: 1,
+						gap: 0.5,
 					}}
 				>
 					<Controller
@@ -242,13 +244,44 @@ export const AnnotationFormContent: React.FC<
 							/>
 						)}
 					/>
+					<Box
+						sx={{
+							display: "flex",
+							flexDirection: "row",
+							gap: 0.5,
+							alignItems: "center",
+							pb: 0.5,
+						}}
+					>
+						<Button
+							size="small"
+							variant="contained"
+							disabled={!isValid || isSubmitting}
+							disableElevation
+							sx={{
+								borderRadius: 10,
+								minWidth: "auto",
+								padding: "4px 8px",
+								fontSize: "0.75rem",
+								"&:disabled": {
+									color: grey[500],
+									backgroundColor: grey[700],
+								},
+							}}
+							type="submit"
+						>
+							{editedAnnotation ? (
+								<Trans i18nKey="annotation.edit.send">Modifier</Trans>
+							) : (
+								<Trans i18nKey="annotation.create.send">Envoyer</Trans>
+							)}
+						</Button>
+					</Box>
 				</Box>
 
 				<EmotionsPalette
 					emotion={values.emotion || ""}
 					projectId={project.id}
-					semiAutoAnnotation={false}
-					semiAutoAnnotationMe={false}
 					position={videoProgress}
 					onEmotionChange={(emotion) => {
 						setValue("emotion", emotion, {
@@ -258,15 +291,28 @@ export const AnnotationFormContent: React.FC<
 				/>
 
 				<Box
-					display={"flex"}
-					justifyContent={"space-between"}
-					alignItems={"center"}
+					sx={{
+						display: "flex",
+						flexDirection: "row",
+						justifyContent: "space-between",
+						alignItems: "center",
+						gap: 1,
+						width: "100%",
+					}}
 				>
-					<Box>
+					<Box
+						sx={{
+							display: "flex",
+							flexDirection: "row",
+							flexWrap: "nowrap",
+							alignItems: "center",
+							gap: 1,
+						}}
+					>
 						<Tooltip title="Placer un repère visuel" arrow>
 							<FormControlLabel
 								label="Contexte"
-								sx={{ color: "white" }}
+								sx={{ color: "white", flexShrink: 0, whiteSpace: "nowrap" }}
 								slotProps={{
 									typography: {
 										fontSize: {
@@ -289,13 +335,13 @@ export const AnnotationFormContent: React.FC<
 							/>
 						</Tooltip>
 
-						<Tooltip title={"Pause automatique à l'ouverture"} arrow>
-							<Controller
-								name="pause"
-								control={control}
-								render={({ field }) => (
+						<Controller
+							name="pause"
+							control={control}
+							render={({ field }) => (
+								<Tooltip title={"Pause automatique à l'ouverture"} arrow>
 									<FormControlLabel
-										sx={{ color: "white" }}
+										sx={{ color: "white", flexShrink: 0, whiteSpace: "nowrap" }}
 										slotProps={{
 											typography: {
 												fontSize: {
@@ -317,46 +363,38 @@ export const AnnotationFormContent: React.FC<
 											/>
 										}
 									/>
-								)}
-							/>
-						</Tooltip>
+								</Tooltip>
+							)}
+						/>
+						<ConceptSelector
+							onChange={(concept) => {
+								setValue("concept", concept, {
+									shouldValidate: true,
+								});
+							}}
+						/>
 					</Box>
-					<ConceptSelector
-						onChange={(concept) => {
-							setValue("concept", concept, {
-								shouldValidate: true,
-							});
+					<Box
+						sx={{
+							display: "flex",
+							flexDirection: "row",
+							alignItems: "center",
+							gap: 1,
+							flexShrink: 0,
+							ml: "auto",
 						}}
-					/>
-					<Box sx={{ marginY: 1 }} flexDirection={"row"}>
+					>
 						<Button
 							size="small"
 							onClick={handleClose}
 							sx={{
 								color: grey[500],
+								minWidth: "auto",
+								padding: "4px 8px",
+								fontSize: "0.75rem",
 							}}
 						>
 							<Trans i18nKey="annotation.create.cancel">Annuler</Trans>
-						</Button>
-						<Button
-							size="small"
-							variant="contained"
-							disabled={!isValid || isSubmitting}
-							disableElevation
-							sx={{
-								borderRadius: 10,
-								"&:disabled": {
-									color: grey[500],
-									backgroundColor: grey[700],
-								},
-							}}
-							type="submit"
-						>
-							{editedAnnotation ? (
-								<Trans i18nKey="annotation.edit.send">Modifier</Trans>
-							) : (
-								<Trans i18nKey="annotation.create.send">Envoyer</Trans>
-							)}
 						</Button>
 					</Box>
 				</Box>

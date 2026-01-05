@@ -36,7 +36,7 @@
     "@celluloid/prisma": "workspace:*",
     "@celluloid/utils": "workspace:*",
     "@celluloid/queue": "workspace:*",
-    "@prisma/client": "6.18.0",
+    "@prisma/client": "catalog:prisma",
     "@t3-oss/env-core": "^0.11.1",
     "bcryptjs": "^2.4.3",
     "better-auth": "^1.0.21",

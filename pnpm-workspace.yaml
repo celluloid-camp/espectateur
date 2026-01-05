@@ -7,6 +7,9 @@ catalog:
   zod: ^3.23.8
 
 catalogs:
+  prisma:
+    prisma: 6.18.0
+    "@prisma/client": 6.18.0
   react18:
     react: 18.2.0
     react-dom: 18.2.0

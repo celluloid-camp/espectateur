@@ -44,7 +44,6 @@
     "prebuild": "pnpm run generate",
     "predev": "pnpm run generate",
     "studio": "pnpm prisma studio",
-    "prisma": "pnpx prisma",
     "update-metadata": "tsx ./src/update-metadata.ts",
     "migrate-sharecode": "tsx ./src/migrate-sharecode.ts",
     "tsx": "tsx"
@@ -57,13 +56,13 @@
     "@types/randomcolor": "^0.5.7",
     "dotenv-cli": "^7.3.0",
     "eslint": "^8.50.0",
-    "prisma": "6.18.0",
+    "prisma": "catalog:prisma",
     "rimraf": "^5.0.1",
     "tsup": "^8.3.0",
     "typescript": "catalog:"
   },
   "dependencies": {
-    "@prisma/client": "6.18.0",
+    "@prisma/client": "catalog:prisma",
     "@t3-oss/env-core": "^0.12.0",
     "randomcolor": "^0.6.2",
     "tsx": "^4.19.1",

@@ -1,7 +1,11 @@
 import { Box } from "@mui/material";
-import { useEffect, useState, useRef, type CSSProperties } from "react";
-import { emojisArray, type EmotionRecommended, type Emoji } from "./emoji";
-import { mapEmotionToEmojis } from "./emoji";
+import { type CSSProperties, useEffect, useRef, useState } from "react";
+import {
+	type Emoji,
+	type EmotionRecommended,
+	emojisArray,
+	mapEmotionToEmojis,
+} from "./emoji";
 import { useAutoDetectionStore } from "./store";
 
 // import AnnotationService from 'services/AnnotationService';
@@ -11,8 +15,6 @@ const OFFSET = 10;
 interface EmotionsPaletteProps {
 	projectId: string;
 	position: number;
-	semiAutoAnnotation: boolean;
-	semiAutoAnnotationMe: boolean;
 	emotion: string | null;
 	onEmotionChange(emotion: string | undefined): void;
 	sx?: CSSProperties;
@@ -21,8 +23,6 @@ interface EmotionsPaletteProps {
 export function EmotionsPalette({
 	position,
 	projectId,
-	semiAutoAnnotation = true,
-	semiAutoAnnotationMe = false,
 	emotion,
 	onEmotionChange,
 }: EmotionsPaletteProps) {
@@ -32,6 +32,9 @@ export function EmotionsPalette({
 	const startPositionRef = useRef<number>(0);
 
 	const autoDetection = useAutoDetectionStore((state) => state.autoDetection);
+	const autoDetectionMode = useAutoDetectionStore(
+		(state) => state.autoDetectionMode,
+	);
 
 	const detectedEmotion = useAutoDetectionStore(
 		(state) => state.detectedEmotion,
@@ -62,7 +65,7 @@ export function EmotionsPalette({
 			try {
 				let startTimeParam: number = startPositionRef.current;
 
-				if (semiAutoAnnotationMe) {
+				if (autoDetectionMode === "auto/reco/me") {
 					if (startTimeParam - 10 >= 0) startTimeParam = startTimeParam - 10;
 					else startTimeParam = 0;
 				} else {
@@ -85,14 +88,18 @@ export function EmotionsPalette({
 				//   limit: 4,
 				// });
 
-				const palette: Emoji[] = generatePalette(suggestions);
-				if (!palette.length) {
-					const neutralEmoji = emojisArray.find(
-						(emoji) => emoji.value === "neutral",
-					);
+				const palette: Emoji[] =
+					autoDetectionMode !== "auto" ? generatePalette(suggestions) : [];
+				// if (!palette.length) {
+				// 	const neutralEmoji = emojisArray.find(
+				// 		(emoji) => emoji.value === "neutral",
+				// 	);
 
-					if (neutralEmoji) palette.push(neutralEmoji);
-				}
+				// 	if (neutralEmoji) palette.push(neutralEmoji);
+				// }
+
+				if (!palette.find((emotion) => emotion.value === "itsStrange"))
+					palette.unshift(emojisArray[11]);
 
 				// Always add like and dislike
 				if (!palette.find((emotion) => emotion.value === "iDontLike"))
@@ -118,7 +125,7 @@ export function EmotionsPalette({
 		return () => {
 			clearInterval(captureIntervalRef.current as number);
 		};
-	}, [semiAutoAnnotation, semiAutoAnnotationMe, projectId, detectedEmotion]);
+	}, [autoDetectionMode, projectId, detectedEmotion]);
 
 	// UI Code
 	const handleHover = (index: number) => {

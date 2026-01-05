@@ -1,10 +1,10 @@
-import * as React from "react";
-import MenuItem from "@mui/material/MenuItem";
-import FormControl from "@mui/material/FormControl";
-import Select, { type SelectChangeEvent } from "@mui/material/Select";
-import { useConceptsQuery } from "~utils/concepts";
 import { OutlinedInput } from "@mui/material";
+import FormControl from "@mui/material/FormControl";
+import MenuItem from "@mui/material/MenuItem";
+import Select, { type SelectChangeEvent } from "@mui/material/Select";
+import * as React from "react";
 import { useTranslation } from "react-i18next";
+import { useConceptsQuery } from "~utils/concepts";
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
@@ -19,7 +19,9 @@ const MenuProps = {
 
 export function ConceptSelector({
 	onChange,
-}: { onChange?: (concept: string) => void }) {
+}: {
+	onChange?: (concept: string) => void;
+}) {
 	const { data } = useConceptsQuery();
 	const [concept, setConcept] = React.useState("");
 
@@ -30,7 +32,15 @@ export function ConceptSelector({
 	};
 
 	return (
-		<FormControl sx={{ m: 1, maxWidth: 100 }} size="small">
+		<FormControl
+			sx={{
+				m: 1,
+				maxWidth: 100,
+				minWidth: { xs: 80, sm: 100 },
+				width: { xs: 80, sm: 100 },
+			}}
+			size="small"
+		>
 			<Select
 				labelId="concept-select-label"
 				id="concept-select"

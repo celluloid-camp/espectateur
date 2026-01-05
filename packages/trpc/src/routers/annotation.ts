@@ -1,16 +1,14 @@
-import { prisma } from '@celluloid/prisma';
-import type { Annotation } from '@celluloid/prisma';
-import { Prisma } from '@celluloid/prisma';
-import { formatTimeFromSeconds, toSrt } from '@celluloid/utils';
-import { TRPCError } from '@trpc/server';
-import { observable } from '@trpc/server/observable';
-import { EventEmitter } from 'node:events';
-import { parse as toXML } from 'js2xmlparser';
-import Papa from 'papaparse';
-import { z } from 'zod';
-import * as XLSX from 'xlsx';
-import { protectedProcedure, publicProcedure, router } from '../trpc';
-
+import { EventEmitter } from "node:events";
+import type { Annotation } from "@celluloid/prisma";
+import { Prisma, prisma } from "@celluloid/prisma";
+import { formatTimeFromSeconds, toSrt } from "@celluloid/utils";
+import { TRPCError } from "@trpc/server";
+import { observable } from "@trpc/server/observable";
+import { parse as toXML } from "js2xmlparser";
+import Papa from "papaparse";
+import * as XLSX from "xlsx";
+import { z } from "zod";
+import { protectedProcedure, publicProcedure, router } from "../trpc";
 
 // create a global event emitter (could be replaced by redis, etc)
 const ee = new EventEmitter();
@@ -26,11 +24,10 @@ export const defaultUserSelect = Prisma.validator<Prisma.UserSelect>()({
       id: true,
       //@ts-expect-error dynamic
       publicUrl: true,
-      path: true
-    }
-  }
+      path: true,
+    },
+  },
 });
-
 
 export const annotationRouter = router({
   byProjectId: publicProcedure
@@ -42,24 +39,30 @@ export const annotationRouter = router({
     .query(async ({ input }) => {
       const { id } = input;
       const annotations = await prisma.annotation.findMany({
-        where: { projectId: id, detection: null },
+        where: {
+          projectId: id,
+          OR: [
+            { detection: null },
+            { text: { not: "" } },
+          ],
+        },
         include: {
           comments: {
             include: {
               user: {
-                select: defaultUserSelect
+                select: defaultUserSelect,
               },
             },
             orderBy: {
-              createdAt: 'desc',
+              createdAt: "desc",
             },
           },
           user: {
-            select: defaultUserSelect
+            select: defaultUserSelect,
           },
         },
         orderBy: {
-          createdAt: 'desc',
+          createdAt: "desc",
         },
       });
       // if (!project) {
@@ -78,10 +81,10 @@ export const annotationRouter = router({
         emit.next(data);
       };
       // trigger `onAdd()` when `add` is triggered in our event emitter
-      ee.on('change', onChange);
+      ee.on("change", onChange);
       // unsubscribe function when client disconnects or stops subscribing
       return () => {
-        ee.off('change', onChange);
+        ee.off("change", onChange);
       };
     });
   }),
@@ -97,7 +100,9 @@ export const annotationRouter = router({
         emotion: z.string().optional(),
         mode: z.enum(["performance", "analysis"]).optional(),
         concept: z.string().optional(),
-        detection: z.enum(["auto", "auto/reco/me", "auto/reco/allusers"]).optional()
+        detection: z
+          .enum(["auto", "auto/reco/me", "auto/reco/allusers"])
+          .optional(),
       }),
     )
     .mutation(async ({ input, ctx }) => {
@@ -114,14 +119,14 @@ export const annotationRouter = router({
             emotion: input.emotion,
             mode: input.mode,
             detection: input.detection,
-            concept: input.concept
-          }
+            concept: input.concept,
+          },
           // select: defaultPostSelect,
         });
 
         // skip if detection is auto
         if (input.detection === undefined) {
-          ee.emit('change', annotation);
+          ee.emit("change", annotation);
         }
         return annotation;
       }
@@ -141,25 +146,26 @@ export const annotationRouter = router({
       }),
     )
     .mutation(async ({ input, ctx }) => {
-
-
       // Check if the annotation with the given ID exists
       const annotation = await prisma.annotation.findUnique({
         where: { id: input.annotationId },
         include: {
-          project: true
-        }
+          project: true,
+        },
       });
 
       if (!annotation) {
         throw new TRPCError({
           code: "NOT_FOUND",
-          message: "Annotation not found"
-        }
-        );
+          message: "Annotation not found",
+        });
       }
 
-      if (annotation.userId === ctx.user?.id || ctx.user?.role === "admin" || annotation.project.userId === ctx.user?.id) {
+      if (
+        annotation.userId === ctx.user?.id ||
+        ctx.user?.role === "admin" ||
+        annotation.project.userId === ctx.user?.id
+      ) {
         // Perform the update
         const updatedAnnotation = await prisma.annotation.update({
           where: { id: input.annotationId },
@@ -175,15 +181,13 @@ export const annotationRouter = router({
           },
         });
 
-        ee.emit('change', updatedAnnotation);
+        ee.emit("change", updatedAnnotation);
         return updatedAnnotation;
       }
       throw new TRPCError({
         code: "UNAUTHORIZED",
-        message: "Can't edit this annotation"
-      }
-      );
-
+        message: "Can't edit this annotation",
+      });
     }),
 
   delete: protectedProcedure
@@ -193,45 +197,46 @@ export const annotationRouter = router({
       }),
     )
     .mutation(async ({ input, ctx }) => {
-
       // Check if the annotation with the given ID exists
       const annotation = await prisma.annotation.findUnique({
         where: { id: input.annotationId },
         include: {
-          project: true
-        }
+          project: true,
+        },
       });
 
       if (!annotation) {
         throw new TRPCError({
           code: "NOT_FOUND",
-          message: "Annotation not found"
-        }
-        );
+          message: "Annotation not found",
+        });
       }
 
-      if (annotation.userId === ctx.user?.id || ctx.user?.role === "admin" || annotation.project.userId === ctx.user?.id) {
+      if (
+        annotation.userId === ctx.user?.id ||
+        ctx.user?.role === "admin" ||
+        annotation.project.userId === ctx.user?.id
+      ) {
         const annotation = await prisma.annotation.delete({
           where: { id: input.annotationId },
         });
-        ee.emit('change', annotation);
+        ee.emit("change", annotation);
         return annotation;
       }
       throw new TRPCError({
         code: "UNAUTHORIZED",
-        message: "Can't edit this annotation"
-      }
-      );
+        message: "Can't edit this annotation",
+      });
     }),
   export: protectedProcedure
     .input(
       z.object({
         projectId: z.string(),
-        format: z.enum(["csv", "xml", "srt", "ods"])
-      })
-    ).mutation(async ({ input }) => {
+        format: z.enum(["csv", "xml", "srt", "ods"]),
+      }),
+    )
+    .mutation(async ({ input }) => {
       const { format, projectId } = input;
-
 
       const project = await prisma.project.findUnique({
         where: { id: projectId },
@@ -244,10 +249,9 @@ export const annotationRouter = router({
       if (!project) {
         throw new TRPCError({
           code: "NOT_FOUND",
-          message: "Project not found"
+          message: "Project not found",
         });
       }
-
 
       const annotations = await prisma.annotation.findMany({
         where: { projectId: projectId },
@@ -256,7 +260,7 @@ export const annotationRouter = router({
           user: true,
         },
         orderBy: {
-          createdAt: 'desc',
+          createdAt: "desc",
         },
       });
 
@@ -274,35 +278,48 @@ export const annotationRouter = router({
         performance: a.mode === "performance" ? "on" : "off",
         detection: a.detection,
         concept: a.concept,
-      }))
+      }));
 
-      const sorted = formated.sort((a, b) => a.start - b.start).map((a) => ({
-        ...a,
-        start: formatTimeFromSeconds(a.start),
-        end: formatTimeFromSeconds(a.end),
-      }))
+      const sorted = formated
+        .sort((a, b) => a.start - b.start)
+        .map((a) => ({
+          ...a,
+          start: formatTimeFromSeconds(a.start),
+          end: formatTimeFromSeconds(a.end),
+        }));
 
       let content = "";
-      if (format === 'xml') {
-        content = toXML("annotations", sorted, { cdataKeys: ['comments', 'text'] });
+      if (format === "xml") {
+        content = toXML("annotations", sorted, {
+          cdataKeys: ["comments", "text"],
+        });
       } else if (format === "csv") {
         content = Papa.unparse(sorted);
       } else if (format === "srt") {
         content = toSrt(formated);
       } else if (format === "ods") {
         const worksheet = XLSX.utils.json_to_sheet(sorted);
-        const dublinData = Object.entries(project.dublin as Record<string, string>).reduce((acc, [key, value]) => {
-          acc[key] = value;
-          return acc;
-        }, {} as Record<string, string>);
+        const dublinData = Object.entries(
+          project.dublin as Record<string, string>,
+        ).reduce(
+          (acc, [key, value]) => {
+            acc[key] = value;
+            return acc;
+          },
+          {} as Record<string, string>,
+        );
 
         const dublinMetadata = XLSX.utils.json_to_sheet([dublinData]); // Wrap in array for single row
         const workbook = XLSX.utils.book_new();
         XLSX.utils.book_append_sheet(workbook, worksheet, "Annotations");
-        XLSX.utils.book_append_sheet(workbook, dublinMetadata, "Metadata Dublin");
-        content = XLSX.write(workbook, { type: 'base64', bookType: 'ods' });
+        XLSX.utils.book_append_sheet(
+          workbook,
+          dublinMetadata,
+          "Metadata Dublin",
+        );
+        content = XLSX.write(workbook, { type: "base64", bookType: "ods" });
       }
-      return content
+      return content;
     }),
   stats: publicProcedure
     .input(
@@ -324,10 +341,9 @@ export const annotationRouter = router({
           concept: true,
         },
         orderBy: {
-          createdAt: 'desc',
+          createdAt: "desc",
         },
       });
       return annotations;
     }),
-
 });

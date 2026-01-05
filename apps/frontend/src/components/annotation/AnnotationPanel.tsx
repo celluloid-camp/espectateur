@@ -1,8 +1,9 @@
 import { useParentSize } from "@cutting/use-get-parent-size";
+import BookmarksIcon from "@mui/icons-material/Bookmarks";
 import InfoIcon from "@mui/icons-material/Info";
 import SpeakerNotesIcon from "@mui/icons-material/SpeakerNotes";
 import ViewTimelineIcon from "@mui/icons-material/ViewTimeline";
-import BookmarksIcon from "@mui/icons-material/Bookmarks";
+import { LoadingButton, TabContext, TabList, TabPanel } from "@mui/lab";
 import {
 	Badge,
 	type BadgeProps,
@@ -23,27 +24,14 @@ import { grey } from "@mui/material/colors";
 import type * as React from "react";
 import { useEffect, useRef, useState } from "react";
 import { Trans, useTranslation } from "react-i18next";
-
+import { ChaptersPanel } from "~components/chapters/panel";
 import type { AnnotationByProjectId, ProjectById, UserMe } from "~utils/trpc";
-
+import AutoDetectionMenu from "../emotion-detection/menu";
+import { usePlayerModeStore } from "../emotion-detection/store";
+import { SmallSwitch } from "../small-switch";
 import { AnnotationForm } from "./AnnotationForm";
 import { AnnotationItem } from "./AnnotationItem";
 import { useAnnotationHintsVisible } from "./useAnnotationEditor";
-import { LoadingButton, TabContext, TabList, TabPanel } from "@mui/lab";
-import { ChaptersPanel } from "~components/chapters/panel";
-import { SmallSwitch } from "../small-switch";
-
-import { usePlayerModeStore } from "../emotion-detection/store";
-import AutoDetectionMenu from "../emotion-detection/menu";
-
-const StyledBadge = styled(Badge)<BadgeProps>(({ theme }) => ({
-	"& .MuiBadge-badge": {
-		right: -3,
-		top: 13,
-		border: `2px solid ${theme.palette.background.dark}`,
-		padding: "0 4px",
-	},
-}));
 
 const EmptyAnnotation = () => (
 	<Grow in={true}>
@@ -52,8 +40,8 @@ const EmptyAnnotation = () => (
 			alignContent={"center"}
 			alignItems={"center"}
 			sx={{
-				paddingY: 5,
-				paddingX: 5,
+				paddingY: 2,
+				paddingX: 2,
 				borderRadius: 1,
 				borderStyle: "dashed",
 				borderWidth: 1,
@@ -86,10 +74,10 @@ const AnnotationList: React.FC<
 	const [listHeight, setListHeight] = useState<number | "auto">("auto");
 
 	const updateListHeight = () => {
-		if (containerRef.current && formRef.current) {
-			const containerHeight = containerRef.current.offsetHeight;
-			const formHeight = formRef.current.offsetHeight + 20;
-			setListHeight(containerHeight - formHeight);
+		if (containerRef.current) {
+			const containerHeight = containerRef.current.clientHeight;
+			// const formHeight = formRef.current.offsetHeight - 20;
+			setListHeight(containerHeight - 30);
 		}
 	};
 
@@ -126,6 +114,7 @@ const AnnotationList: React.FC<
 				display: "flex",
 				flexDirection: "column",
 				position: "relative",
+				overflow: "hidden",
 			}}
 		>
 			<List
@@ -135,11 +124,7 @@ const AnnotationList: React.FC<
 					overflow: "auto",
 					paddingX: 2,
 					position: "relative",
-
-					// height: `${listHeight}px`,
-					// maxHeight: `${listHeight}px`,
-					// minHeight: 600,
-					// maxHeight: 600,
+					minHeight: 0,
 					"& ul": { padding: 0 },
 				}}
 			>
@@ -155,7 +140,15 @@ const AnnotationList: React.FC<
 				{annotations.length === 0 && <EmptyAnnotation />}
 			</List>
 
-			<Box display={"flex"} flexDirection={"column"}>
+			<Box
+				display={"flex"}
+				flexDirection={"column"}
+				ref={formRef}
+				sx={{
+					flexShrink: 0,
+					marginTop: "auto",
+				}}
+			>
 				{project.annotable && user ? (
 					<AnnotationForm
 						duration={project.duration}

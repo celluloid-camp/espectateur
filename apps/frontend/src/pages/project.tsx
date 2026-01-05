@@ -2,8 +2,8 @@ import type ReactPlayer from "@celluloid/react-player";
 import {
 	Box,
 	CircularProgress,
-	colors,
 	Container,
+	colors,
 	Grid,
 	Paper,
 	Skeleton,
@@ -12,9 +12,9 @@ import {
 } from "@mui/material";
 import React, { Suspense, useEffect, useMemo, useRef, useState } from "react";
 import { ErrorBoundary } from "react-error-boundary";
+import { useTranslation } from "react-i18next";
 import { useParams } from "react-router-dom";
 import { usePlayerModeStore } from "~/components/emotion-detection/store";
-
 import { DubinPanel } from "~/components/project/dubin-panel";
 import { ProjectNotes } from "~/components/project/ProjectNotes";
 import { ProjectTranscript } from "~/components/project/ProjectTranscript";
@@ -31,7 +31,6 @@ import { VideoPlayer } from "~components/project/VideoPlayer";
 import { useVideoPlayerEvent } from "~hooks/use-video-player";
 import type { ProjectById, UserMe } from "~utils/trpc";
 import { type AnnotationByProjectId, trpc } from "~utils/trpc";
-import { useTranslation } from "react-i18next";
 
 interface Props {
 	project: ProjectById;
@@ -172,7 +171,7 @@ const ProjectMainGrid: React.FC<Props> = ({ project, user }) => {
 				)}
 				<VideoPlayer
 					ref={videoPlayerRef}
-					height={containerHeight}
+					height={containerHeight ?? 0}
 					url={`https://${project.host}/w/${project.videoId}`}
 				/>
 			</Grid>

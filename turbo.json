@@ -44,7 +44,8 @@
     "SMTP_USER",
     "SMTP_PASSWORD",
     "SMTP_EMAIL_FROM",
-    "MISTRAL_API_KEY"
+    "MISTRAL_API_KEY",
+    "RESEND_API_KEY"
   ],
   "globalPassThroughEnv": [
     "NODE_ENV",

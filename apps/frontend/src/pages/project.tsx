@@ -152,6 +152,11 @@ const ProjectMainGrid: React.FC<Props> = ({ project, user }) => {
 				height: "60vh",
 				minHeight: "60vh",
 				maxHeight: "60vh",
+				"@media (max-resolution: 1.5dppx)": {
+					height: "80vh",
+					minHeight: "80vh",
+					maxHeight: "80vh",
+				},
 				paddingX: 2,
 			}}
 		>
@@ -312,6 +317,7 @@ const ProjectContent = ({ project, user }: Props) => {
 								</ErrorBoundary>
 							</Grid>
 							<Grid item xs={12} md={4} lg={4}>
+								Pixel ratio: {window.devicePixelRatio}
 								<SideBar project={project} user={user} />
 							</Grid>
 						</Grid>

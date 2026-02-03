@@ -146,7 +146,7 @@ const AnnotationList: React.FC<
 				ref={formRef}
 				sx={{
 					flexShrink: 0,
-					marginTop: "auto",
+					marginTop: "10px",
 				}}
 			>
 				{project.annotable && user ? (
@@ -204,7 +204,7 @@ export const AnnotationPanel: React.FC<AnnotationPanelProps> = ({
 						position: "relative",
 					}}
 				>
-					<Box position={"absolute"} right={0} top={20}>
+					<Box position={"absolute"} right={0} top={10}>
 						<Tooltip
 							title={t(
 								"project.annotation.hints.label",
@@ -215,6 +215,13 @@ export const AnnotationPanel: React.FC<AnnotationPanelProps> = ({
 								color="secondary"
 								size="small"
 								onClick={() => setHintsVisible(!hintsVisible)}
+								sx={{
+									width: 32,
+									height: 32,
+									minWidth: 32,
+									minHeight: 32,
+									"& .MuiSvgIcon-root": { fontSize: "1.1rem" },
+								}}
 							>
 								<ViewTimelineIcon />
 							</Fab>
@@ -223,13 +230,31 @@ export const AnnotationPanel: React.FC<AnnotationPanelProps> = ({
 
 					<TabList
 						onChange={handleChange}
-						aria-label="lab API tabs example"
+						aria-label="Annotation panel tabs"
 						textColor="secondary"
 						indicatorColor="secondary"
+						sx={{
+							minHeight: 40,
+							"& .MuiTab-root": {
+								minHeight: 40,
+								py: 0.5,
+							},
+						}}
 					>
 						<Tab
 							icon={
-								<Badge badgeContent={annotationCount} color="secondary">
+								<Badge
+									badgeContent={annotationCount}
+									color="secondary"
+									sx={{
+										"& .MuiBadge-badge": {
+											fontSize: "0.65rem",
+											minWidth: 16,
+											height: 16,
+											padding: "0 4px",
+										},
+									}}
+								>
 									<SpeakerNotesIcon />
 								</Badge>
 							}
@@ -251,7 +276,7 @@ export const AnnotationPanel: React.FC<AnnotationPanelProps> = ({
 						height: "100%",
 						padding: 0,
 						position: "relative",
-						paddingBottom: "100px",
+						paddingBottom: "50px",
 					}}
 				>
 					<Box
@@ -324,7 +349,7 @@ function AdvancedControls({
 					checked={onlyMine}
 					onChange={() => onOnlyMineChange(!onlyMine)}
 				/>
-				<Typography sx={{ color: "text.secondary", fontSize: "12px" }}>
+				<Typography sx={{ color: "text.secondary" }} variant="caption">
 					{t("annotation.show-only-mine")}
 				</Typography>
 			</Stack>
@@ -335,7 +360,7 @@ function AdvancedControls({
 						setMode(mode === "performance" ? "analysis" : "performance")
 					}
 				/>
-				<Typography sx={{ color: "text.secondary", fontSize: "12px" }}>
+				<Typography sx={{ color: "text.secondary" }} variant="caption">
 					{t("annotation.performance-mode")}
 				</Typography>
 			</Stack>

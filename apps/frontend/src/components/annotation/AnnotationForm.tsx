@@ -193,7 +193,7 @@ export const AnnotationFormContent: React.FC<
 			<Box
 				component="form"
 				onSubmit={handleSubmit(onSubmit)}
-				sx={{ flexShrink: 0, py: 5, paddingX: 2 }}
+				sx={{ flexShrink: 0, py: 0, paddingX: 2 }}
 			>
 				<Box>
 					<Controller

@@ -54,7 +54,7 @@ The project is organized as a [monorepo](https://blog.scottlogic.com/2018/02/23/
 │   ├── types/           # Shared TypeScript types
 │   └── utils/           # Shared utilities
 ├── tests/               # Test scripts and test-related utilities
-├── packages.json        # Package manifest
+├── package.json         # Package manifest
 └── .env                 # Environment variables
 ```
 
@@ -87,7 +87,7 @@ Open your terminal and execute the following commands:
 
 ```bash
 git clone https://github.com/celluloid-camp/espectateur.git
-cd celluloid/
+cd espectateur/
 pnpm
 ```
 
@@ -130,10 +130,10 @@ You can access your app at http://localhost:3000.
 Open a terminal at the repository's root and run:
 
 ```bash
-docker build -t  celluloid:latest -f Dockerfile.compact .
+docker build -t espectateur:latest -f Dockerfile .
 ```
 
-[Minio](https://min.io/docs/minio/container/index.html) is used for storage, make sure to run local instance or use external service and don't forget to update your [.env](.env.sample) file 
+[Minio](https://min.io/docs/minio/container/index.html) is used for storage, make sure to run local instance or use external service and don't forget to update your `.env` file (copied from [env.sample](env.sample)).
 
 ### Contributing
 

@@ -115,7 +115,7 @@ docker compose up -d postgres redis minio createbuckets
 
 For development purposes, ensure local services are running with Docker Compose, then run:
 
-At the root of your repository, run the projet in development mode:
+At the root of your repository, run the project in development mode:
 
 ```bash
 pnpm dev

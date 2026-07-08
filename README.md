@@ -1,5 +1,5 @@
 
-# e-spect@tor
+# Especellu (e-spect@tor)
 
 [![Docker Build](https://github.com/celluloid-camp/espectateur/actions/workflows/build.yml/badge.svg?branch=main)](https://github.com/celluloid-camp/espectateur/actions/workflows/build.yml)
 [![Tests](https://github.com/celluloid-camp/espectateur/actions/workflows/test-ci.yml/badge.svg)](https://celluloid-camp.github.io/celluloid)
@@ -7,19 +7,19 @@
 
 ## Overview
 
-Celluloid is a collaborative video annotation application designed for educational purposes.
+e-spect@tor is a webservice to annotate, comment, and analyze audiovisual content (movies, series, TV shows, or your own videos) alone or as a team.
 
-With Celluloid, you can find a [PeerTube](https://joinpeertube.org/) video, select an educational objective, annotate the video, share it with your students, collect their answers, and respond to their questions.
+The development of e-spect@tor is led by Cécile Chantraine Braillon (CRHIA UR 1163, La Rochelle Université). The current version, along with its successive developments, has been supported by the Nouvelle-Aquitaine Region, the European Union (Erasmus+ Partnership DiMPAH project), the Huma-Num CANEVAS consortium and the University of Poitiers (CRLA-Archivos, ENSMA).
 
 ## ✨ Demo
 
-Visit https://celluloid.huma-num.fr/, create an account, and start using Celluloid.
+Visit https://especellu.huma-num.fr/, create an account, and start using e-spect@tor.
 We value your feedback on the application's user experience and design. If you encounter any bugs or issues, please don't hesitate to [report them](https://github.com/celluloid-camp/espectateur/issues).
 
 ## Development Team
 
-Celluloid originated from a research project led by **Michaël Bourgatte** and **Laurent Tessier**, two senior lecturers at the [Catholic University of Paris](https://en.icp.fr/english-version/). Their work focuses on educational science and digital humanities.
-Celluloid is currently maintained by [Younes Benaomar](https://github.com/younes200), and we actively encourage contributions and involvement from the community. Feel free to reach out to us on [Discussions](https://github.com/celluloid-camp/espectateur/discussions).
+The developers who contributed to e-spect@tor are Maya Larbi, Lyes Kellouche, and Younès Benaomar.
+e-spect@tor is a fork of the Celluloid application, developed by Laurent Tessier (Institut Catholique de Paris) and Michaël Bourgatte (Université de Lorraine). Like Celluloid, e-spect@tor is an Open-Source project in Digital Humanities. Feel free to reach out to us on [Discussions](https://github.com/celluloid-camp/espectateur/discussions).
 
 # Setup
 

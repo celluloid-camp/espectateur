@@ -1,7 +1,4 @@
 
-<img width="200" alt="Celluloid is a collaborative video annotation application designed for
-educational purposes." src="./docs/assets/logo.svg">
-
 # e-spect@tor
 
 [![Docker Build](https://github.com/celluloid-camp/espectateur/actions/workflows/build.yml/badge.svg?branch=main)](https://github.com/celluloid-camp/espectateur/actions/workflows/build.yml)
@@ -9,8 +6,6 @@ educational purposes." src="./docs/assets/logo.svg">
 ![Uptime Robot status](https://img.shields.io/uptimerobot/status/m797111948-48bf307d8bef7e04a34fe6f1?label=Uptime)
 
 ## Overview
-
-<img width="80%" alt="" src="./docs/assets/screencapture_1.png">
 
 Celluloid is a collaborative video annotation application designed for educational purposes.
 
@@ -88,7 +83,7 @@ Open your terminal and execute the following commands:
 ```bash
 git clone https://github.com/celluloid-camp/espectateur.git
 cd espectateur/
-pnpm
+pnpm install
 ```
 
 ### Configuration
@@ -101,9 +96,24 @@ cp env.sample .env
 
 Open the newly created .env file with your preferred text editor and configure the values according to your requirements.
 
+For local development with the provided [docker-compose.yml](docker-compose.yml), make sure at least these variables are set:
+
+```bash
+DATABASE_URL=postgres://localhost:5432/espectateur
+REDIS_URL=redis://localhost:6379
+BASE_URL=http://localhost:3000
+BETTER_AUTH_SECRET=change-this-secret
+```
+
+Then start local services:
+
+```bash
+docker compose up -d postgres redis minio createbuckets
+```
+
 ### Development Mode
 
-For development purposes, you can use the provided Docker Compose [docker-compose.yml](docker-compose.yml) and run the command:
+For development purposes, ensure local services are running with Docker Compose, then run:
 
 At the root of your repository, run the projet in development mode:
 
@@ -159,7 +169,3 @@ Before contributing to Celluloid's development, it's essential to familiarize yo
 ## V1 Legacy
 
 You can still find the old Celluloid version 1 that supports YouTube videos [here](https://github.com/celluloid-camp/espectateur/releases/tag/v1).
-
-
-<img width="200" alt="Celluloid is a collaborative video annotation application designed for
-educational purposes." src="./apps/frontend/src/images/about/logo-icp.jpg">

@@ -133,7 +133,7 @@ Open a terminal at the repository's root and run:
 docker build -t espectateur:latest -f Dockerfile .
 ```
 
-[Minio](https://min.io/docs/minio/container/index.html) is used for storage, make sure to run local instance or use external service and don't forget to update your `.env` file (copied from [env.sample](./env.sample)).
+[Minio](https://min.io/docs/minio/container/index.html) is used for storage, make sure to run local instance or use external service and don't forget to update your `.env` file (copied from `env.sample`).
 
 ### Contributing
 

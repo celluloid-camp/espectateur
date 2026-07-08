@@ -1,8 +1,5 @@
 
-<img width="200" alt="Celluloid is a collaborative video annotation application designed for
-educational purposes." src="./docs/assets/logo.svg">
-
-# e-spect@tor
+# Especellu (e-spect@tor)
 
 [![Docker Build](https://github.com/celluloid-camp/espectateur/actions/workflows/build.yml/badge.svg?branch=main)](https://github.com/celluloid-camp/espectateur/actions/workflows/build.yml)
 [![Tests](https://github.com/celluloid-camp/espectateur/actions/workflows/test-ci.yml/badge.svg)](https://celluloid-camp.github.io/celluloid)
@@ -10,21 +7,19 @@ educational purposes." src="./docs/assets/logo.svg">
 
 ## Overview
 
-<img width="80%" alt="" src="./docs/assets/screencapture_1.png">
+e-spect@tor is a webservice to annotate, comment, and analyze audiovisual content (movies, series, TV shows, or your own videos) alone or as a team.
 
-Celluloid is a collaborative video annotation application designed for educational purposes.
-
-With Celluloid, you can find a [PeerTube](https://joinpeertube.org/) video, select an educational objective, annotate the video, share it with your students, collect their answers, and respond to their questions.
+The development of e-spect@tor is led by Cécile Chantraine Braillon (CRHIA UR 1163, La Rochelle Université). The current version, along with its successive developments, has been supported by the Nouvelle-Aquitaine Region, the European Union (Erasmus+ Partnership DiMPAH project), the Huma-Num CANEVAS consortium and the University of Poitiers (CRLA-Archivos, ENSMA).
 
 ## ✨ Demo
 
-Visit https://celluloid.huma-num.fr/, create an account, and start using Celluloid.
+Visit https://especellu.huma-num.fr/, create an account, and start using e-spect@tor.
 We value your feedback on the application's user experience and design. If you encounter any bugs or issues, please don't hesitate to [report them](https://github.com/celluloid-camp/espectateur/issues).
 
 ## Development Team
 
-Celluloid originated from a research project led by **Michaël Bourgatte** and **Laurent Tessier**, two senior lecturers at the [Catholic University of Paris](https://en.icp.fr/english-version/). Their work focuses on educational science and digital humanities.
-Celluloid is currently maintained by [Younes Benaomar](https://github.com/younes200), and we actively encourage contributions and involvement from the community. Feel free to reach out to us on [Discussions](https://github.com/celluloid-camp/espectateur/discussions).
+The developers who contributed to e-spect@tor are Maya Larbi, Lyes Kellouche, and Younès Benaomar.
+e-spect@tor is a fork of the Celluloid application, developed by Laurent Tessier (Institut Catholique de Paris) and Michaël Bourgatte (Université de Lorraine). Like Celluloid, e-spect@tor is an Open-Source project in Digital Humanities. Feel free to reach out to us on [Discussions](https://github.com/celluloid-camp/espectateur/discussions).
 
 # Setup
 
@@ -54,7 +49,7 @@ The project is organized as a [monorepo](https://blog.scottlogic.com/2018/02/23/
 │   ├── types/           # Shared TypeScript types
 │   └── utils/           # Shared utilities
 ├── tests/               # Test scripts and test-related utilities
-├── packages.json        # Package manifest
+├── package.json         # Package manifest
 └── .env                 # Environment variables
 ```
 
@@ -87,8 +82,8 @@ Open your terminal and execute the following commands:
 
 ```bash
 git clone https://github.com/celluloid-camp/espectateur.git
-cd celluloid/
-pnpm
+cd espectateur/
+pnpm install
 ```
 
 ### Configuration
@@ -101,11 +96,26 @@ cp env.sample .env
 
 Open the newly created .env file with your preferred text editor and configure the values according to your requirements.
 
+For local development with the provided [docker-compose.yml](docker-compose.yml), make sure at least these variables are set:
+
+```bash
+DATABASE_URL=postgres://localhost:5432/espectateur
+REDIS_URL=redis://localhost:6379
+BASE_URL=http://localhost:3000
+BETTER_AUTH_SECRET=change-this-secret
+```
+
+Then start local services:
+
+```bash
+docker compose up -d postgres redis minio createbuckets
+```
+
 ### Development Mode
 
-For development purposes, you can use the provided Docker Compose [docker-compose.yml](docker-compose.yml) and run the command:
+For development purposes, ensure local services are running with Docker Compose, then run:
 
-At the root of your repository, run the projet in development mode:
+At the root of your repository, run the project in development mode:
 
 ```bash
 pnpm dev
@@ -130,10 +140,10 @@ You can access your app at http://localhost:3000.
 Open a terminal at the repository's root and run:
 
 ```bash
-docker build -t  celluloid:latest -f Dockerfile.compact .
+docker build -t espectateur:latest -f Dockerfile .
 ```
 
-[Minio](https://min.io/docs/minio/container/index.html) is used for storage, make sure to run local instance or use external service and don't forget to update your [.env](.env.sample) file 
+[Minio](https://min.io/docs/minio/container/index.html) is used for storage, make sure to run local instance or use external service and don't forget to update your `.env` file (copied from `env.sample`).
 
 ### Contributing
 
@@ -159,7 +169,3 @@ Before contributing to Celluloid's development, it's essential to familiarize yo
 ## V1 Legacy
 
 You can still find the old Celluloid version 1 that supports YouTube videos [here](https://github.com/celluloid-camp/espectateur/releases/tag/v1).
-
-
-<img width="200" alt="Celluloid is a collaborative video annotation application designed for
-educational purposes." src="./apps/frontend/src/images/about/logo-icp.jpg">
